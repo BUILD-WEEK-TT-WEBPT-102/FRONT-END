@@ -1,5 +1,4 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 
 const initialState = {
@@ -8,20 +7,20 @@ const initialState = {
   phoneNumber: "",
 };
 
-export default function Register() {
-  const [newUser, setNewUser] = useState(initialState);
+export default function Signin() {
+  const [user, setUser] = useState(initialState);
 
   const handleChange = (event) => {
     const { value, name } = event.target;
-    setNewUser({ ...newUser, [name]: value });
+    setUser({ ...user, [name]: value });
   };
 
-  const signUp = async (event) => {
+  const signIn = async (event) => {
     event.preventDefault();
     try {
       const response = axios.post(
-        "https://backend-u4-ttwebpt102.herokuapp.com/api/auth/register",
-        newUser
+        "https://backend-u4-ttwebpt102.herokuapp.com/api/auth/login",
+        user
       );
       localStorage.setItem("authToken", response.data);
       console.log(response.data);
@@ -30,35 +29,29 @@ export default function Register() {
     }
   };
 
-  // const signUp = (event) => {
-  //   event.preventDefault();
-  //   console.log("submitted");
-  //   console.log(newUser);
-  // };
-
   return (
     <div>
-      <h1>TEST</h1>
-      <form onSubmit={signUp}>
+      <h1>Signin TEST</h1>
+      <form onSubmit={signIn}>
         <label>Username</label>
         <input
           type="text"
           name="username"
-          value={newUser.username}
+          value={user.username}
           onChange={handleChange}
         />
         <label>Password</label>
         <input
           type="password"
           name="password"
-          value={newUser.password}
+          value={user.password}
           onChange={handleChange}
         />
         <label>PhoneNumber</label>
         <input
           type="text"
           name="phoneNumber"
-          value={newUser.phoneNumber}
+          value={user.phoneNumber}
           onChange={handleChange}
         />
         <button>Submit</button>

@@ -1,10 +1,16 @@
-import AddNewUser from "./components/addNewUser/AddNewUser";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+
+import Signup from "./components/register/Signup";
+import Signin from "./components/register/Signin";
 
 function App() {
   return (
-    <div>
-      <AddNewUser />
-    </div>
+    <Router>
+      <Switch>
+        <Route exact path="/" component={Signup} />
+        <Route path="/sign-in" component={Signin} />
+      </Switch>
+    </Router>
   );
 }
 
