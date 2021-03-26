@@ -11,7 +11,7 @@ const initialFormValues = {
   password: '',
 }
 
-//LET'S INITIALIZE FORM ERRORS
+// INITIALIZE FORM ERRORS
 const initialFormErrors = {
     userName: '',
     phoneNumber: '',
@@ -32,9 +32,8 @@ const formSchema = yup.object().shape({
         .required('phone number is required, please fill out.'),
     password: yup.string()
         .min(8,'Password must be 8 characters long')
-        .required('Password is required, please fill out.'), 
-    selectPlant: yup.string()
-        .oneOf(['small', 'medium', 'large', 'extra-larg'], 'selectPlant is required'),        
+        .required('Password is required, please fill out.')
+            
 })
 
 
