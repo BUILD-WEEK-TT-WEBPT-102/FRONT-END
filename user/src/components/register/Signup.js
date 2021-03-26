@@ -20,12 +20,16 @@ export default function Signup() {
   const signUp = async (event) => {
     event.preventDefault();
     try {
+      // const response = axios.post(
+      //   " https://reqres.in/api/users/register",
+      //   newUser
+      // );
       const response = axios.post(
-        "https://backend-u4-ttwebpt102.herokuapp.com/api/auth/register",
+        " https://backend-u4-ttwebpt102.herokuapp.com/api/auth/register",
         newUser
       );
-      localStorage.setItem("authToken", response.data);
-      console.log(response.data);
+      //localStorage.setItem("authToken", response.data);
+      console.log(response);
     } catch (error) {
       console.log(error);
     }
