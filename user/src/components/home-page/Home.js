@@ -9,11 +9,21 @@ export default function Home() {
 
   const routeToLogIn = () => {
     console.log('...routing')
-    history.push('/LogInForm')
+    history.push('/sign-in')
   }
 
   return (
-    <div className='home-wrapper'>
+    <div className='container'>
+      <header><h1>Never let your plants dry again.</h1></header>
+      <nav>
+        <h1 className='pizza-header'>Plant&apos;s Radience</h1>
+        <div className='nav-links'>
+          {/*  Make Links to navigate us Home (`/`) and (`/SignupForm`) */}
+          <Link to="/">Home</Link>
+          <Link to="/sign-up">SignUp!</Link>
+        </div>
+      </nav> 
+      <div className='home-wrapper'>
         <button
         onClick={routeToLogIn}
         className='md-button shop-button'
@@ -28,5 +38,6 @@ export default function Home() {
       />
       </div>
     </div>
-  )
+    </div>
+)
 }
