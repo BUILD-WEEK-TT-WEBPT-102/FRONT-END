@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
-//import axiosWithAuth } from "../utils/axiosWithAuth";
 import * as yup from "yup";
 
 const initialFormValues = {
@@ -52,32 +51,6 @@ export default function LogInForm() {
     setErrors(name, value);
   };
 
-  //POST NEW USER USING HELPER
-  // const formSubmit = async (event) => {
-  //   event.preventDefault();
-
-  //   const user = {
-  //     username: formValues.username.trim(),
-  //     password: formValues.password.trim(),
-  //   };
-  //   console.log(user);
-  //   try {
-  //     const response = axiosWithAuth().post(
-  //       "/auth/login",
-  //       /*"https://reqres.in/api/users",*/
-  //       user
-  //     );
-  //     //localStorage.setItem("authToken", response.data.token);
-  //     //push("/my-plants");
-  //     //console.log(response.data);
-  //     console.log(response);
-  //     // console.log(response.data.data.token);
-  //     // console.log(`${response.data.token}`);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-
   const formSubmit = (event) => {
     event.preventDefault();
 
@@ -85,12 +58,12 @@ export default function LogInForm() {
       username: formValues.username.trim(),
       password: formValues.password.trim(),
     };
-    console.log(user);
-    // try {
+
     axios
       .post("https://backend-u4-ttwebpt102.herokuapp.com/api/auth/login", user)
-      .then((res) => {
-        console.log(res.data);
+      .then((response) => {
+        localStorage.setItem("authToken", response.data.token);
+        push("/my-plants");
       })
       .catch((err) => {
         console.log(err);
