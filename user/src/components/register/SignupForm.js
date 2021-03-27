@@ -59,7 +59,7 @@ export default function SignupForm() {
   };
 
   // POST NEW USER USING HELPER
-  const formSubmit = async (event) => {
+  const formSubmit = (event) => {
     event.preventDefault();
 
     const newUser = {
@@ -68,18 +68,17 @@ export default function SignupForm() {
       password: formValues.password.trim(),
     };
 
-    try {
-      const response = axios.post(
-        /*"https://reqres.in/api/users/register",*/
+    axios
+      .post(
         "https://backend-u4-ttwebpt102.herokuapp.com/api/auth/register",
         newUser
-      );
-      localStorage.setItem("authToken", response.data);
-      push("/sign-in");
-      console.log(response);
-    } catch (error) {
-      console.log(error);
-    }
+      )
+      .then((response) => {
+        //localStorage.setItem("authToken", response.data);
+        push("/sign-in");
+        console.log(response);
+      })
+      .catch((error) => console.log(error));
   };
 
   // SIDE EFFECTS
