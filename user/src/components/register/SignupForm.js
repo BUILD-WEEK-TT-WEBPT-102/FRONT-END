@@ -10,7 +10,7 @@ const initialFormValues = {
   password: "",
 };
 
-//LET'S INITIALIZE FORM ERRORS
+// INITIALIZE FORM ERRORS
 const initialFormErrors = {
   username: "",
   phoneNumber: "",
@@ -36,6 +36,8 @@ const formSchema = yup.object().shape({
     .min(8, "Password must be 8 characters long")
     .required("Password is required, please fill out."),
 });
+
+  
 
 export default function SignupForm() {
   const [formValues, setFormValues] = useState(initialFormValues);
