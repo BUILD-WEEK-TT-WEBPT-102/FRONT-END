@@ -10,7 +10,7 @@ const initialFormValues = {
   password: "",
 };
 
-//LET'S INITIALIZE FORM ERRORS
+// INITIALIZE FORM ERRORS
 const initialFormErrors = {
   username: "",
   phoneNumber: "",
@@ -74,7 +74,6 @@ export default function SignupForm() {
         newUser
       )
       .then((response) => {
-        //localStorage.setItem("authToken", response.data);
         push("/sign-in");
         console.log(response);
       })
