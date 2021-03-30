@@ -1,4 +1,7 @@
 import React, { useState } from "react";
+import { axiosWithAuth } from "../utils/axiosWithAuth";
+import { useHistory } from "react-router-dom";
+
 import "./updateProfile.styles.css";
 
 export default function UpdateProfile() {
@@ -8,6 +11,27 @@ export default function UpdateProfile() {
     phoneNumber: "",
   });
 
+  const { push } = useHistory();
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setNewInfo({ ...newInfo, [name]: value });
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const userId = localStorage.getItem("id");
+    axiosWithAuth()
+      .put(`users/${userId}`, newInfo)
+      .then((res) => {
+        console.log(res.data);
+        setNewInfo(res.data);
+      })
+      .catch((err) => console.log(err));
+
+    push("/sign-in");
+  };
+
   return (
     <div className="container">
       <div className="row">
@@ -16,39 +40,48 @@ export default function UpdateProfile() {
             <div className="card-img-left d-none d-md-flex"></div>
             <div className="card-body">
               <h5 className="card-title text-center">Update Your Basic Info</h5>
-              <form className="form-signin">
+              <form className="form-signin" onSubmit={handleSubmit}>
                 <div className="form-label-group">
                   <input
+                    name="username"
                     type="text"
                     id="inputUserame"
                     className="form-control"
                     placeholder="Username"
+                    value={newInfo.username}
+                    onChange={handleChange}
                     required
-                    autofocus
+                    autoFocus
                   />
-                  <label for="inputUserame">Username</label>
+                  <label htmlFor="inputUserame">Username</label>
                 </div>
 
                 <div className="form-label-group">
                   <input
-                    type="text"
-                    id="inputPhone"
-                    className="form-control"
-                    placeholder="Phone Number"
-                    required
-                  />
-                  <label for="inputPhone">Phone Number</label>
-                </div>
-
-                <div className="form-label-group">
-                  <input
+                    name="password"
                     type="password"
                     id="inputPassword"
                     className="form-control"
                     placeholder="Password"
+                    value={newInfo.password}
+                    onChange={handleChange}
                     required
                   />
-                  <label for="inputPassword">Password</label>
+                  <label htmlFor="inputPassword">Password</label>
+                </div>
+
+                <div className="form-label-group">
+                  <input
+                    name="phoneNumber"
+                    type="text"
+                    id="inputPhone"
+                    className="form-control"
+                    placeholder="Phone Number"
+                    value={newInfo.phoneNumber}
+                    onChange={handleChange}
+                    required
+                  />
+                  <label htmlFor="inputPhone">Phone Number</label>
                 </div>
 
                 <button
