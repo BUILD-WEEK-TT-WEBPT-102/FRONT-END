@@ -1,0 +1,27 @@
+.profile-container {
+  margin-top: 7%;
+}
+
+.profile-title {
+  text-align: center;
+}
+
+.profile-head {
+  transform: translateY(5rem);
+}
+
+.cover {
+  background-image: url("https://images.pexels.com/photos/807598/pexels-photo-807598.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500");
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+body {
+  background-image: url("https://images.pexels.com/photos/1903963/pexels-photo-1903963.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500");
+  background-size: cover;
+  height: 100%;
+}
+
+i.fa-pen {
+  margin-left: 5%;
+}
