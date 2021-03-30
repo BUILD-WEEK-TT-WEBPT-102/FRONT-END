@@ -5,7 +5,7 @@ import { axiosWithAuth } from "../utils/axiosWithAuth";
 import "./nav.styles.css";
 
 export default function Nav() {
-  const [userName, setUserName] = useState("");
+  const [helloName, setHelloName] = useState("");
   const userId = localStorage.getItem("id");
 
   useEffect(() => {
@@ -13,7 +13,7 @@ export default function Nav() {
       .get(`/users/${userId}`)
       .then((response) => {
         console.log(response.data);
-        setUserName(response.data.username);
+        setHelloName(response.data.username);
       })
       .catch((error) => console.log(error));
   }, [userId]);
@@ -21,7 +21,7 @@ export default function Nav() {
   return (
     <div className="nav-container">
       <Link className="option" to="/profile/:id">
-        Hello {userName}
+        Hello {helloName}
       </Link>
       <Link className="option" to="/">
         Home
