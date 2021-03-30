@@ -140,8 +140,4 @@ export default function SignupForm() {
       </div>
     </form>
   );
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> main
