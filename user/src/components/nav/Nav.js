@@ -1,27 +1,41 @@
-import React, {useEffect} from 'react'
-import {Link} from 'react-router-dom'
-import axiosWithAuth from '../utils/axiosWithAuth'
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { axiosWithAuth } from "../utils/axiosWithAuth";
 
+import "./nav.styles.css";
 
-export default function Nav {
-    useEffect(() => {
-        axiosWithAuth()
-          .get(`/users/${userId}`)
-          .then((response) => {
-            console.log(response.data);
-            setCurrentUser(response.data);
-          })
-          .catch((error) => console.log(error));
-      }, [userId]);
-    
+export default function Nav() {
+  const [userName, setUserName] = useState("");
+  const userId = localStorage.getItem("id");
 
-    return (
-        <>
-        <p>Hello </p>
-  <Link>Home</Link>
-  <Link>My Plants</Link>
-  <Link>Profile</Link>
-      </>
-  
-    )
+  useEffect(() => {
+    axiosWithAuth()
+      .get(`/users/${userId}`)
+      .then((response) => {
+        console.log(response.data);
+        setUserName(response.data.username);
+      })
+      .catch((error) => console.log(error));
+  }, []);
+
+  return (
+    <div className="nav-container">
+      <Link className="option" to="/profile/:id">
+        Hello {userName}
+      </Link>
+      <Link className="option" to="/">
+        Home
+      </Link>
+      <Link className="option" to="/my-plants">
+        My Plants
+      </Link>
+      <Link
+        className="option"
+        to="/sign-up"
+        onClick={() => localStorage.removeItem("authToken")}
+      >
+        Sign out
+      </Link>
+    </div>
+  );
 }

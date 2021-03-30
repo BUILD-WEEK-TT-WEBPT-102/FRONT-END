@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
+import Nav from "./components/nav/Nav";
 import Home from "./components/home-page/Home";
 import SignupForm from "./components/register/SignupForm";
 import LogInForm from "./components/register/LogInForm";
@@ -11,6 +12,7 @@ import UpdateProfile from "./components/userProfile/UpdateProfile";
 function App() {
   return (
     <Router>
+      <Nav />
       <Switch>
         <Route exact path="/" component={Home} />
         <Route path="/sign-up" component={SignupForm} />
