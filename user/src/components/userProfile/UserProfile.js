@@ -21,7 +21,7 @@ export default function UserProfile() {
         setCurrentUser(response.data);
       })
       .catch((error) => console.log(error));
-  }, []);
+  }, [userId]);
 
   return (
     <div>

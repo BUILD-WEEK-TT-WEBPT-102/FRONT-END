@@ -16,7 +16,7 @@ export default function Nav() {
         setUserName(response.data.username);
       })
       .catch((error) => console.log(error));
-  }, []);
+  }, [userId]);
 
   return (
     <div className="nav-container">
@@ -31,7 +31,7 @@ export default function Nav() {
       </Link>
       <Link
         className="option"
-        to="/sign-up"
+        to="/"
         onClick={() => localStorage.removeItem("authToken")}
       >
         Sign out
