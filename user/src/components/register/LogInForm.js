@@ -26,7 +26,11 @@ const formSchema = yup.object().shape({
     .min(3, "Username must be 3 characters long"),
   password: yup
     .string()
+<<<<<<< HEAD
     .min(6, "Password must be 6 characters long")
+=======
+    .min(8, "Password must be 8 characters long")
+>>>>>>> main
     .required("Password is required, please fill out."),
 });
 
@@ -60,12 +64,18 @@ export default function LogInForm() {
     };
 
     axios
+<<<<<<< HEAD
       //.post(" https://reqres.in/api/users/login", user)
       .post("https://backend-u4-ttwebpt102.herokuapp.com/api/auth/login", user)
       .then((response) => {
         localStorage.setItem("authToken", response.data.token);
         //console.log(response.data);
         localStorage.setItem("id", response.data.user_id);
+=======
+      .post("https://backend-u4-ttwebpt102.herokuapp.com/api/auth/login", user)
+      .then((response) => {
+        localStorage.setItem("authToken", response.data.token);
+>>>>>>> main
         push("/my-plants");
       })
       .catch((err) => {

@@ -1,4 +1,5 @@
 import React from "react";
+<<<<<<< HEAD
 import { Link } from "react-router-dom";
 
 export default function Test() {
@@ -10,4 +11,9 @@ export default function Test() {
       <Link to={`/profile/${userId}`}>profile</Link>
     </div>
   );
+=======
+
+export default function Test() {
+  return <h2>Test PrivateRoute</h2>;
+>>>>>>> main
 }
