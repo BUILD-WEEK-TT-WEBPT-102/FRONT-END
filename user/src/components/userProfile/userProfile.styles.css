@@ -2,6 +2,10 @@
   margin-top: 7%;
 }
 
+.profile-title {
+  text-align: center;
+}
+
 .profile-head {
   transform: translateY(5rem);
 }

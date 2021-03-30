@@ -1,13 +1,13 @@
 import React from "react";
-import { useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 
-export default function Test({ userId }) {
-  const { push } = useHistory();
+export default function Test() {
+  const userId = localStorage.getItem("id");
 
   return (
     <div>
       <h2>Test PrivateRoute</h2>
-      <button onClick={() => push("/my-plants")}>profile</button>
+      <Link to={`/profile/${userId}`}>profile</Link>
     </div>
   );
 }

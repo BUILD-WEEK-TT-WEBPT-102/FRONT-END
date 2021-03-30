@@ -1,7 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import "./updateProfile.styles.css";
 
 export default function UpdateProfile() {
+  const [newInfo, setNewInfo] = useState({
+    username: "",
+    password: "",
+    phoneNumber: "",
+  });
+
   return (
     <div className="container">
       <div className="row">

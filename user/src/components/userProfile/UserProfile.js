@@ -4,24 +4,32 @@ import { axiosWithAuth } from "../utils/axiosWithAuth";
 
 import "./userProfile.styles.css";
 
-export default function UserProfile({ userId }) {
+export default function UserProfile() {
   const [currentUser, setCurrentUser] = useState({
     username: "",
     phoneNumber: "",
     password: "",
   });
   const { push } = useHistory();
+  const userId = localStorage.getItem("id");
 
   useEffect(() => {
     axiosWithAuth()
       .get(`/users/${userId}`)
-      .then((response) => setCurrentUser(response.data))
+      .then((response) => {
+        console.log(response.data);
+        setCurrentUser(response.data);
+      })
       .catch((error) => console.log(error));
-  }, [userId]);
+  }, []);
 
   return (
     <div>
       <div className="profile-container">
+        <div className="profile-title">
+          <h3>Welcome, {currentUser.username}</h3>
+          <p>Manage your info</p>
+        </div>
         <div className="row py-5 px-4">
           <div className="col-md-5 mx-auto">
             <div className="bg-white shadow rounded overflow-hidden">
@@ -36,20 +44,21 @@ export default function UserProfile({ userId }) {
                     />
                     <div
                       className="btn btn-outline-dark btn-sm btn-block"
-                      onClick={() => push("/update-profile")}
+                      onClick={() => push(`/update-profile/${userId}`)}
                     >
                       Edit profile <i class="fas fa-pen"></i>
                     </div>
                   </div>
-                  <div className="media-body mb-5 text-white">
+                  {/*<div className="media-body mb-5 text-white">
                     <h4 className="mt-0 mb-0">
                       Welcome, {currentUser.username}
                     </h4>
                     <p className="small mb-4">
                       {" "}
-                      <i className="fas fa-map-marker-alt mr-2"></i>New York
+                      Basic info, like your name and photo, that you use on
+                      Google services
                     </p>
-                  </div>
+  </div>*/}
                 </div>
               </div>
               <div className="bg-light p-4 d-flex justify-content-end text-center">
@@ -67,10 +76,6 @@ export default function UserProfile({ userId }) {
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
-                        <th scope="row">Password:</th>
-                        <td>{currentUser.password}</td>
-                      </tr>
                       <tr>
                         <th scope="row">Phone:</th>
                         <td>{currentUser.phoneNumber}</td>
