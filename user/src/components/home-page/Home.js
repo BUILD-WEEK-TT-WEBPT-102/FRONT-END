@@ -8,7 +8,7 @@ export default function Home() {
   const history = useHistory();
 
   const routeToLogIn = () => {
-    console.log("...routing");
+    // console.log("...routing");
     history.push("/sign-in");
   };
 
@@ -30,11 +30,11 @@ export default function Home() {
           LogIn Now!
         </button>
         <div>
-          <img
+          {/* <img
             className="home-image"
             src="https://i.pinimg.com/originals/25/c8/48/25c848940552cafac0fbf68a146f5190.jpg"
             alt=""
-          />
+          /> */}
         </div>
       </div>
     </div>

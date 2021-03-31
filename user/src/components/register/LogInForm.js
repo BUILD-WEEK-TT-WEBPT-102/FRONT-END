@@ -63,7 +63,7 @@ export default function LogInForm() {
       .post("https://backend-u4-ttwebpt102.herokuapp.com/api/auth/login", user)
       .then((response) => {
         localStorage.setItem("authToken", response.data.token);
-        push("/my-plants");
+        push("/plantlist");
       })
       .catch((err) => {
         console.log(err);
