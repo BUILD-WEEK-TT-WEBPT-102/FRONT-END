@@ -13,19 +13,18 @@ const EditPlant = (props) => {
     user_id: "",
   });
 
-  const { id } = useParams();
   const history = useHistory();
   const plantId = localStorage.getItem("plantId");
 
-  useEffect(() => {
-    axiosWithAuth()
-      .get(`/users/${userId}/plants`)
-      .then((res) => {
-        console.log("edit res", res);
-        localStorage.setItem("plantId", res.data.plantCollection[0].species_id);
-      })
-      .catch((err) => console.log(err));
-  }, [id]);
+  // useEffect(() => {
+  //   axiosWithAuth()
+  //     .get(`/users/${userId}/plants`)
+  //     .then((res) => {
+  //       console.log("edit res", res);
+  //       localStorage.setItem("plantId", res.data.plantCollection[0].species_id);
+  //     })
+  //     .catch((err) => console.log(err));
+  // }, [id]);
 
   const handleChanges = (e) => {
     e.persist();
@@ -38,25 +37,20 @@ const EditPlant = (props) => {
 
   const handleSubmit = (ev) => {
     ev.preventDefault();
-    axios
-      .put(
-        `https://backend-u4-ttwebpt102.herokuapp.com/api/plants/${id}`,
-        editPlant
-      )
+    axiosWithAuth()
+      .put(`/plants/${plantId}`, editPlant)
       .then((res) => {
         console.log("res", res);
         setEditPlant(res.data);
-        history.push(`/plant-list/${id}`);
+        history.push("/my-plants");
       })
       .catch((err) => console.log(err));
   };
 
   const deletePlant = (e) => {
     e.preventDefault();
-    axios
-      .delete(
-        `https://backend-u4-ttwebpt102.herokuapp.com/api/plants/${plantId}`
-      )
+    axiosWithAuth()
+      .delete(`/plants/${plantId}`)
       .then((res) => {
         setEditPlant(res.data);
       })

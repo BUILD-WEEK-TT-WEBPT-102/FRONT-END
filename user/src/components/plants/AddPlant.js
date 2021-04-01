@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import axios from "axios";
+import { axiosWithAuth } from "../utils/axiosWithAuth";
 
 const AddPlant = () => {
   const [plant, setPlant] = useState({
@@ -27,8 +27,8 @@ const AddPlant = () => {
     // }
     console.log("submit plant", plant);
     e.preventDefault();
-    axios
-      .post("https://backend-u4-ttwebpt102.herokuapp.com/api/plants", plant)
+    axiosWithAuth()
+      .post("/plants", plant)
       .then((res) => console.log("addplant post req", res))
       .catch((err) => console.log(err));
   };
