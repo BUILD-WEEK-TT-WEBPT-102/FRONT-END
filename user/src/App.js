@@ -30,15 +30,19 @@ function App() {
 
   return (
     <Router>
-      {console.log("app plantlist", plantList)}
       <Switch>
         <Route exact path="/" component={Home} />
         <Route path="/sign-up" component={SignupForm} />
-        <Route path="/sign-in" component={LogInForm} />
-
-        <Route path="/plantlist">
-          <PlantList plants={plantList}/>
+        <Route exact path="/sign-in">
+          <LogInForm />
         </Route>
+        {/* <PrivateRoute exact path="/my-plants">
+          <PlantTest />
+        </PrivateRoute> */}
+
+        <PrivateRoute path="/plantlist">
+          <PlantList plants={plantList}/>
+        </PrivateRoute>
 
         <Route
           exact
@@ -57,9 +61,9 @@ function App() {
           render={(props) => <Plant {...props} setPlantList={setPlantList}/>}
         />
 
-        <Route exact path="/plants/:id">
-          <Plant plantList={plantList} setPlantList={setPlantList} />
-        </Route>
+        <PrivateRoute exact path="/plants/:id">
+          <Plant  plantList={plantList} setPlantList={setPlantList} />
+        </PrivateRoute>
 
       </Switch>
     </Router>

@@ -1,71 +1,74 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import { useHistory, useParams } from 'react-router-dom'
+import React from "react";
+import axiosWithAuth from "../utils/axiosWithAuth";
+import { useHistory } from "react-router-dom";
 
-const EditPlant = (props) => {
+const EditPlant = () => {
   const [plant, setPlant] = useState({
     nickname: "",
-    // species: "",
-    water_frequency: "",
-    species_id: "",
-    user_id: ""
+    species: "",
+    h2oFrequency: "",
   });
 
-  const { id } = useParams()
+  //const { id } = useParams()
   const history = useHistory();
 
   useEffect(() => {
-      axios
-        .get(`https://backend-u4-ttwebpt102.herokuapp.com/api/plants/${id}`)
-        .then(res => setPlant(res.data))
-        .catch(err => console.log(err))
-  }, [id])
+    axiosWithAuth()
+      .get(`${userId}/`)
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err));
+  }, []);
 
-  const handleChanges = e => {
-      e.persist();
-      e.preventDefault();
-      setPlant({
-          ...plant,
-          [e.target.name]: e.target.value
-      })
-  }
+  const handleChanges = (e) => {
+    e.persist();
+    setPlant({
+      ...plant,
+      [e.target.name]: e.target.value,
+    });
+  };
 
-  const handleSubmit = ev => {
+  const handleSubmit = (ev) => {
     ev.preventDefault();
     axios
-        .put(`https://backend-u4-ttwebpt102.herokuapp.com/api/plants/${id}`, plant)
-        .then(res => {
-          console.log('res', res)
-          setPlant(res.data)
-          history.push(`/plant-list/${id}`)
-        })
-        .catch(err => console.log(err))
-  }
+      .put(``, plant)
+      .then((res) => {
+        props.setPlantList(
+          props.plantList.map((plant) => {
+            if (plant.id === res.data.id) {
+              return res.data;
+            } else {
+              return plant;
+            }
+          })
+        );
+      })
+      .catch((err) => console.log(err));
+  };
 
   return (
     <div>
       <h2>Edit Plant</h2>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={}>
         <input
           type="text"
           name="nickname"
-          onChange={handleChanges}
+          onChange={}
           placeholder="nickname"
           value={plant.nickname}
         />
-        {/* <input
-          type="text"
-          name="species"
-          onChange={handleChanges}
-          placeholder="species"
-          value={plant.species}
-        /> */}
         <input
           type="text"
-          name="water_frequency"
-          onChange={handleChanges}
+          name="species"
+          onChange={}
+          placeholder="species"
+          value={plant.species}
+        />
+        <input
+          type="text"
+          name="h2oFrequency"
+          onChange={}
           placeholder="h2oFrequency"
-          value={plant.water_frequency}
+          value={plant.h2oFrequency}
         />
         <button>Update</button>
       </form>
