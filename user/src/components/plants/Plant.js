@@ -6,9 +6,9 @@ import PlantCard from "./PlantCard";
 
 const Plant = ({ plantList, setPlantList }) => {
   const [plant, setPlant] = useState(null);
-  //const params = useParams();
-  const history = useHistory();
   const userId = localStorage.getItem("id");
+  // const params = useParams();
+  const history = useHistory();
 
   const fetchPlant = () => {
     axiosWithAuth()

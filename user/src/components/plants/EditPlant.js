@@ -1,28 +1,37 @@
-import React from "react";
-import axiosWithAuth from "../utils/axiosWithAuth";
-import { useHistory } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { useHistory, useParams } from "react-router-dom";
+import { axiosWithAuth } from "../utils/axiosWithAuth";
 
-const EditPlant = () => {
-  const [plant, setPlant] = useState({
+const EditPlant = (props) => {
+  const userId = localStorage.getItem("id");
+  const [editPlant, setEditPlant] = useState({
     nickname: "",
-    species: "",
-    h2oFrequency: "",
+    // species: "",
+    water_frequency: "",
+    species_id: "",
+    user_id: "",
   });
 
-  //const { id } = useParams()
+  const { id } = useParams();
   const history = useHistory();
+  const plantId = localStorage.getItem("plantId");
 
   useEffect(() => {
     axiosWithAuth()
-      .get(`${userId}/`)
-      .then((res) => console.log(res))
+      .get(`/users/${userId}/plants`)
+      .then((res) => {
+        console.log("edit res", res);
+        localStorage.setItem("plantId", res.data.plantCollection[0].species_id);
+      })
       .catch((err) => console.log(err));
-  }, []);
+  }, [id]);
 
   const handleChanges = (e) => {
     e.persist();
-    setPlant({
-      ...plant,
+    e.preventDefault();
+    setEditPlant({
+      ...editPlant,
       [e.target.name]: e.target.value,
     });
   };
@@ -30,17 +39,26 @@ const EditPlant = () => {
   const handleSubmit = (ev) => {
     ev.preventDefault();
     axios
-      .put(``, plant)
+      .put(
+        `https://backend-u4-ttwebpt102.herokuapp.com/api/plants/${id}`,
+        editPlant
+      )
       .then((res) => {
-        props.setPlantList(
-          props.plantList.map((plant) => {
-            if (plant.id === res.data.id) {
-              return res.data;
-            } else {
-              return plant;
-            }
-          })
-        );
+        console.log("res", res);
+        setEditPlant(res.data);
+        history.push(`/plant-list/${id}`);
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const deletePlant = (e) => {
+    e.preventDefault();
+    axios
+      .delete(
+        `https://backend-u4-ttwebpt102.herokuapp.com/api/plants/${plantId}`
+      )
+      .then((res) => {
+        setEditPlant(res.data);
       })
       .catch((err) => console.log(err));
   };
@@ -48,29 +66,30 @@ const EditPlant = () => {
   return (
     <div>
       <h2>Edit Plant</h2>
-      <form onSubmit={}>
+      <form onSubmit={handleSubmit}>
         <input
           type="text"
           name="nickname"
-          onChange={}
+          onChange={handleChanges}
           placeholder="nickname"
-          value={plant.nickname}
+          value={editPlant.nickname}
         />
-        <input
+        {/* <input
           type="text"
           name="species"
-          onChange={}
+          onChange={handleChanges}
           placeholder="species"
           value={plant.species}
-        />
+        /> */}
         <input
           type="text"
-          name="h2oFrequency"
-          onChange={}
+          name="water_frequency"
+          onChange={handleChanges}
           placeholder="h2oFrequency"
-          value={plant.h2oFrequency}
+          value={editPlant.water_frequency}
         />
         <button>Update</button>
+        <button onClick={deletePlant}>Delete</button>
       </form>
     </div>
   );

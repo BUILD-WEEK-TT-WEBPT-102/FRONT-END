@@ -18,20 +18,20 @@ const AddPlant = () => {
     });
   };
 
-  const handleSubmit = e => {
+  const handleSubmit = (e) => {
     // // would replace plant in post request
     // const newPlant = {
     //   ...plant,
     //   // if redux
     //   user_id: props.user.id
     // }
-      console.log('submit plant', plant)
-      e.preventDefault();
-      axios
-        .post('https://backend-u4-ttwebpt102.herokuapp.com/api/plants', plant)
-        .then(res => console.log('addplant post req', res))
-        .catch(err => console.log(err))
-  }
+    console.log("submit plant", plant);
+    e.preventDefault();
+    axios
+      .post("https://backend-u4-ttwebpt102.herokuapp.com/api/plants", plant)
+      .then((res) => console.log("addplant post req", res))
+      .catch((err) => console.log(err));
+  };
 
   return (
     <div>
