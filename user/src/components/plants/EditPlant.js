@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useHistory, useParams } from 'react-router-dom'
+import { axiosWithAuth } from '../utils/axiosWithAuth'
 
 const EditPlant = (props) => {
-  const [plant, setPlant] = useState({
+  const userId = localStorage.getItem("id")
+  const [editPlant, setEditPlant] = useState({
     nickname: "",
     // species: "",
     water_frequency: "",
@@ -13,19 +15,22 @@ const EditPlant = (props) => {
 
   const { id } = useParams()
   const history = useHistory();
+  const plantId = localStorage.getItem("plantId")
 
   useEffect(() => {
-      axios
-        .get(`https://backend-u4-ttwebpt102.herokuapp.com/api/plants/${id}`)
-        .then(res => setPlant(res.data))
+      axiosWithAuth()
+        .get(`/users/${userId}/plants`)
+        .then(res => {
+          console.log('edit res', res)
+          localStorage.setItem("plantId", res.data.plantCollection[0].species_id)})
         .catch(err => console.log(err))
   }, [id])
 
   const handleChanges = e => {
       e.persist();
       e.preventDefault();
-      setPlant({
-          ...plant,
+      setEditPlant({
+          ...editPlant,
           [e.target.name]: e.target.value
       })
   }
@@ -33,14 +38,26 @@ const EditPlant = (props) => {
   const handleSubmit = ev => {
     ev.preventDefault();
     axios
-        .put(`https://backend-u4-ttwebpt102.herokuapp.com/api/plants/${id}`, plant)
+        .put(`https://backend-u4-ttwebpt102.herokuapp.com/api/plants/${id}`, editPlant)
         .then(res => {
           console.log('res', res)
-          setPlant(res.data)
+          setEditPlant(res.data)
           history.push(`/plant-list/${id}`)
         })
         .catch(err => console.log(err))
   }
+
+  const deletePlant = (e) => {
+    e.preventDefault();
+    axios
+      .delete(
+        `https://backend-u4-ttwebpt102.herokuapp.com/api/plants/${plantId}`
+      )
+      .then((res) => {
+        setEditPlant(res.data);
+      })
+      .catch((err) => console.log(err));
+  };
 
   return (
     <div>
@@ -51,7 +68,7 @@ const EditPlant = (props) => {
           name="nickname"
           onChange={handleChanges}
           placeholder="nickname"
-          value={plant.nickname}
+          value={editPlant.nickname}
         />
         {/* <input
           type="text"
@@ -65,9 +82,10 @@ const EditPlant = (props) => {
           name="water_frequency"
           onChange={handleChanges}
           placeholder="h2oFrequency"
-          value={plant.water_frequency}
+          value={editPlant.water_frequency}
         />
         <button>Update</button>
+        <button onClick={deletePlant}>Delete</button>
       </form>
     </div>
   );

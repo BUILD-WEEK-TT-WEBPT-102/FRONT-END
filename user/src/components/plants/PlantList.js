@@ -5,15 +5,13 @@ import AddPlant from './AddPlant'
 import { Route } from 'react-router-dom'
 
 const PlantList = ({ plants }) => {
-    console.log('plantList plants', plants)
 
     return (
         <div>
             {
                 plants.map(plant => {
-                    console.log('individual plant', plant)
                     return (
-                    <Link key={plant.id} to={`/plants/${plants.id}`}>
+                    <Link key={plant.id} to={`/edit-plant/${plant.id}`}>
                         <PlantCard plant={plant}/>
                     </Link>
                     )

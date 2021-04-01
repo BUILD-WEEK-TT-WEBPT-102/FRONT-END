@@ -65,7 +65,7 @@ export default function LogInForm() {
         localStorage.setItem("authToken", response.data.token);
         //console.log(response.data);
         localStorage.setItem("id", response.data.user_id);
-        push("/my-plants");
+        push("/plantlist");
       })
       .catch((err) => {
         console.log(err);

@@ -6,8 +6,8 @@ const AddPlant = () => {
     nickname: "",
     species: "",
     water_frequency: "",
-    species_id: "",
-    user_id: "",
+    user_id: parseInt(localStorage.getItem("id")),
+    // species_id: "",
   });
 
   const handleChanges = (e) => {
@@ -25,12 +25,12 @@ const AddPlant = () => {
     //   // if redux
     //   user_id: props.user.id
     // }
+      console.log('submit plant', plant)
       e.preventDefault();
-      console.log("seth", plant)
       axios
         .post('https://backend-u4-ttwebpt102.herokuapp.com/api/plants', plant)
         .then(res => console.log('addplant post req', res))
-        .catch(err => console.log(err.message))
+        .catch(err => console.log(err))
   }
 
   return (
