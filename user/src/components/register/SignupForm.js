@@ -33,8 +33,7 @@ const formSchema = yup.object().shape({
     password: yup.string()
         .min(8,'Password must be 8 characters long')
         .required('Password is required, please fill out.'), 
-    selectPlant: yup.string()
-        .oneOf(['small', 'medium', 'large', 'extra-larg'], 'selectPlant is required'),        
+            
 })
 
 
