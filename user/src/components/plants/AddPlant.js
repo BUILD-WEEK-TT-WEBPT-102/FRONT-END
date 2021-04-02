@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { axiosWithAuth } from "../utils/axiosWithAuth";
 
-const AddPlant = () => {
+const AddPlant = ({ updatePlantList }) => {
   const [plant, setPlant] = useState({
     nickname: "",
     species: "",
@@ -19,47 +19,68 @@ const AddPlant = () => {
   };
 
   const handleSubmit = (e) => {
-    // // would replace plant in post request
-    // const newPlant = {
-    //   ...plant,
-    //   // if redux
-    //   user_id: props.user.id
-    // }
     console.log("submit plant", plant);
     e.preventDefault();
     axiosWithAuth()
       .post("/plants", plant)
-      .then((res) => console.log("addplant post req", res))
+      .then((res) => updatePlantList(res.data.plantCollection))
       .catch((err) => console.log(err));
   };
 
   return (
-    <div>
-      <h2>Add New Plant!</h2>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          name="nickname"
-          onChange={handleChanges}
-          placeholder="nickname"
-          value={plant.nickname}
-        />
-        <input
-          type="text"
-          name="species"
-          onChange={handleChanges}
-          placeholder="species"
-          value={plant.species}
-        />
-        <input
-          type="text"
-          name="water_frequency"
-          onChange={handleChanges}
-          placeholder="h20Frequency"
-          value={plant.water_frequency}
-        />
-        <button>Add New Plant</button>
-      </form>
+    <div class="col-md-3 col-sm-6">
+      <div className="text-center">
+        <div className="centered">
+          <div className="card card-block">
+            <h5 class="card-title mt-3 mb-3 firstLine">
+              {" "}
+              N &nbsp; E &nbsp; W &nbsp; &nbsp; P &nbsp; L &nbsp; A &nbsp; N
+              &nbsp; T
+            </h5>
+            ----------------------------
+            <p className="card-text secondLine add-plant-input">
+              Add new plant to the list
+            </p>
+            <p>
+              {" "}
+              <input
+                type="text"
+                name="nickname"
+                onChange={handleChanges}
+                placeholder="nickname"
+                value={plant.nickname}
+              />{" "}
+            </p>
+            <p>
+              {" "}
+              <input
+                type="text"
+                name="species"
+                onChange={handleChanges}
+                placeholder="species"
+                value={plant.species}
+              />{" "}
+            </p>
+            <p>
+              {" "}
+              <input
+                type="text"
+                name="water_frequency"
+                onChange={handleChanges}
+                placeholder="h20Frequency"
+                value={plant.water_frequency}
+              />{" "}
+            </p>
+            <button
+              onClick={handleSubmit}
+              type="button"
+              class="btn btn-outline-success"
+            >
+              ADD
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

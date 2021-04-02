@@ -1,16 +1,29 @@
 .profile-container {
-  margin-top: 7%;
+  margin-top: 3%;
   background-image: url("https://images.pexels.com/photos/1903963/pexels-photo-1903963.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500");
   background-size: cover;
   height: 100%;
 }
 
 .profile-title {
+  padding-top: 2%;
   text-align: center;
 }
 
 .profile-head {
   transform: translateY(5rem);
+}
+
+.profile-box {
+  padding: 1.5%;
+}
+
+.profile-link {
+  color: black;
+}
+
+.profile-link:hover {
+  color: rgb(106, 201, 106);
 }
 
 .cover {

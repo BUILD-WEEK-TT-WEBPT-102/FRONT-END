@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
 import { axiosWithAuth } from "../utils/axiosWithAuth";
 
 import PlantCard from "./PlantCard";
+import AddPlant from "./AddPlant";
 
 export default function PlantList({ plantList, setPlantList }) {
   const userId = localStorage.getItem("id");
@@ -27,6 +27,7 @@ export default function PlantList({ plantList, setPlantList }) {
     <div className="container-wrap">
       <div class="plant-card-container container mt-2">
         <div className="row">
+          <AddPlant updatePlantList={setPlantList} />
           {plantList.map((plant) => (
             <PlantCard
               plantList={plantList}
@@ -37,9 +38,6 @@ export default function PlantList({ plantList, setPlantList }) {
           ))}
         </div>
       </div>
-      <Link to={"/add-plant"}>
-        <h3>Add new plant</h3>
-      </Link>
     </div>
   );
 }

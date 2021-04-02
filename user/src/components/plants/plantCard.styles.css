@@ -1,12 +1,9 @@
 .container-wrap {
-  margin-top: 4%;
+  margin-top: 2%;
 }
 
 .plant-card-container {
   padding: 1.5%;
-  border-style: outset;
-  border: 15px solid transparent;
-  background-color: rgb(247, 244, 241);
 }
 
 .plant-card-img {

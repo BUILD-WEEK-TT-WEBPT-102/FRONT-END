@@ -1,30 +1,31 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import { useHistory, useParams } from "react-router-dom";
 import { axiosWithAuth } from "../utils/axiosWithAuth";
 
-const EditPlant = (props) => {
-  const userId = localStorage.getItem("id");
-  const [editPlant, setEditPlant] = useState({
-    nickname: "",
-    // species: "",
-    water_frequency: "",
-    species_id: "",
-    user_id: "",
+const EditPlant = ({ plantList, updatePlantList }) => {
+  const plantId = plantList.map((plant) => {
+    return plant.species_id;
   });
 
-  const history = useHistory();
-  const plantId = localStorage.getItem("plantId");
+  const [editPlant, setEditPlant] = useState({
+    nickname: "",
+    species: "",
+    water_frequency: "",
+    species_id: plantId,
+    user_id: parseInt(localStorage.getItem("id")),
+  });
 
-  // useEffect(() => {
-  //   axiosWithAuth()
-  //     .get(`/users/${userId}/plants`)
-  //     .then((res) => {
-  //       console.log("edit res", res);
-  //       localStorage.setItem("plantId", res.data.plantCollection[0].species_id);
-  //     })
-  //     .catch((err) => console.log(err));
-  // }, [id]);
+  const { push } = useHistory();
+  const { id } = useParams();
+
+  useEffect(() => {
+    axiosWithAuth()
+      .get(`/plants/${id}`)
+      .then((res) => {
+        setEditPlant(res.data);
+      })
+      .catch((err) => console.log(err));
+  }, [id]);
 
   const handleChanges = (e) => {
     e.persist();
@@ -38,21 +39,12 @@ const EditPlant = (props) => {
   const handleSubmit = (ev) => {
     ev.preventDefault();
     axiosWithAuth()
-      .put(`/plants/${plantId}`, editPlant)
+      .put(`/plants/${id}`, editPlant)
       .then((res) => {
-        console.log("res", res);
-        setEditPlant(res.data);
-        history.push("/my-plants");
-      })
-      .catch((err) => console.log(err));
-  };
-
-  const deletePlant = (e) => {
-    e.preventDefault();
-    axiosWithAuth()
-      .delete(`/plants/${plantId}`)
-      .then((res) => {
-        setEditPlant(res.data);
+        console.log(res);
+        console.log("res", res.data);
+        updatePlantList(res.data);
+        push("/my-plants");
       })
       .catch((err) => console.log(err));
   };
@@ -68,13 +60,13 @@ const EditPlant = (props) => {
           placeholder="nickname"
           value={editPlant.nickname}
         />
-        {/* <input
+        <input
           type="text"
           name="species"
           onChange={handleChanges}
           placeholder="species"
-          value={plant.species}
-        /> */}
+          value={editPlant.species}
+        />
         <input
           type="text"
           name="water_frequency"
@@ -82,8 +74,7 @@ const EditPlant = (props) => {
           placeholder="h2oFrequency"
           value={editPlant.water_frequency}
         />
-        <button>Update</button>
-        <button onClick={deletePlant}>Delete</button>
+        <button onClick={handleSubmit}>Update</button>
       </form>
     </div>
   );

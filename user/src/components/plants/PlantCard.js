@@ -1,10 +1,11 @@
 import React from "react";
+import { useHistory } from "react-router-dom";
 import { axiosWithAuth } from "../utils/axiosWithAuth";
 
 import "./plantCard.styles.css";
 
 const PlantCard = ({ updatePlantList, plantList, plant }) => {
-  console.log(plant.species_id);
+  const { push } = useHistory();
 
   const deletePlant = (plant) => {
     axiosWithAuth()
@@ -16,8 +17,8 @@ const PlantCard = ({ updatePlantList, plantList, plant }) => {
           ),
         ];
         updatePlantList(result);
-        console.log(result);
-        console.log(res.data.plant_id);
+        //console.log(result);
+        //console.log(res.data.plant_id);
       })
       .catch((err) => console.log(err));
   };
@@ -26,6 +27,12 @@ const PlantCard = ({ updatePlantList, plantList, plant }) => {
     <div className="col-md-3 col-sm-6">
       <div className="card card-block">
         <h4 className="card-title text-right">
+          <i
+            class="material-icons"
+            onClick={() => push(`/edit-plant/${plant.species_id}`)}
+          >
+            create
+          </i>
           <i
             className="material-icons"
             onClick={(e) => {
@@ -38,12 +45,12 @@ const PlantCard = ({ updatePlantList, plantList, plant }) => {
         </h4>
         <img
           className="plant-card-img"
-          src="https://images.pexels.com/photos/1084188/pexels-photo-1084188.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"
+          src="https://images.pexels.com/photos/1445419/pexels-photo-1445419.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"
           alt="plant"
         />
-        <h5 className="card-title mt-3 mb-3">{plant.nickname}</h5>
-        <p className="card-text">Species: {plant.species}</p>
-        <p>Water me {plant.water_frequency}</p>
+        <h5 className="card-title mt-2 mb-3">{plant.nickname}</h5>
+        <p className="card-text mb-1">Species: {plant.species_type}</p>
+        <h6>Water me {plant.water_frequency}</h6>
       </div>
     </div>
   );

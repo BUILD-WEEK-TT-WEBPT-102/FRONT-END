@@ -33,11 +33,7 @@ function App() {
         </PrivateRoute>
 
         <PrivateRoute exact path="/edit-plant/:id">
-          <EditPlant plantList={plantList} setPlantList={setPlantList} />
-        </PrivateRoute>
-
-        <PrivateRoute exact path="add-plant">
-          <AddPlant />
+          <EditPlant plantList={plantList} UpdatePlantList={setPlantList} />
         </PrivateRoute>
 
         <PrivateRoute path="/my-profile" component={UserProfile} />
