@@ -28,9 +28,8 @@ export default function UserProfile() {
       <div className="profile-container">
         <div className="profile-title">
           <h3>Welcome, {currentUser.username}</h3>
-          <p>Manage your info</p>
         </div>
-        <div className="row py-5 px-4">
+        <div className="profile-box row px-4">
           <div className="col-md-5 mx-auto">
             <div className="bg-white shadow rounded overflow-hidden">
               <div className="px-4 pt-0 pb-4 cover">
@@ -49,20 +48,10 @@ export default function UserProfile() {
                       Edit profile <i class="fas fa-pen"></i>
                     </div>
                   </div>
-                  {/*<div className="media-body mb-5 text-white">
-                    <h4 className="mt-0 mb-0">
-                      Welcome, {currentUser.username}
-                    </h4>
-                    <p className="small mb-4">
-                      {" "}
-                      Basic info, like your name and photo, that you use on
-                      Google services
-                    </p>
-  </div>*/}
                 </div>
               </div>
               <div className="bg-light p-4 d-flex justify-content-end text-center">
-                <h5>MY PLANTS</h5>
+                <p>Manage your info</p>
               </div>
               <div className="px-4 py-3">
                 <h5 className="mb-0">BASIC INFO</h5>

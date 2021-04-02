@@ -19,23 +19,25 @@ export default function Nav() {
   }, [userId]);
 
   return (
-    <div className="nav-container">
-      <Link className="option" to="/profile/:id">
-        Hello {helloName}
+    <div className="header-container">
+      <Link className="logo" to="/">
+        WATER MY PLANTS
       </Link>
-      <Link className="option" to="/">
-        Home
-      </Link>
-      <Link className="option" to="/my-plants">
-        My Plants
-      </Link>
-      <Link
-        className="option"
-        to="/"
-        onClick={() => localStorage.removeItem("authToken")}
-      >
-        Sign out
-      </Link>
+      <div className="nav-container">
+        <Link className="option1" to="/my-profile">
+          <p className="option-hello">HELLO</p>{" "}
+          <p className="option-name">{helloName}</p>
+        </Link>
+        <Link className="option" to="/">
+          HOME
+        </Link>
+        <Link className="option" to="/my-plants">
+          MY PLANTS
+        </Link>
+        <Link className="option" to="/" onClick={() => localStorage.clear()}>
+          SIGN OUT
+        </Link>
+      </div>
     </div>
   );
 }

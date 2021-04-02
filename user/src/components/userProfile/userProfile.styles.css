@@ -1,8 +1,12 @@
 .profile-container {
-  margin-top: 7%;
+  margin-top: 3%;
+  background-image: url("https://images.pexels.com/photos/1903963/pexels-photo-1903963.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500");
+  background-size: cover;
+  height: 100%;
 }
 
 .profile-title {
+  padding-top: 2%;
   text-align: center;
 }
 
@@ -10,16 +14,22 @@
   transform: translateY(5rem);
 }
 
+.profile-box {
+  padding: 1.5%;
+}
+
+.profile-link {
+  color: black;
+}
+
+.profile-link:hover {
+  color: rgb(106, 201, 106);
+}
+
 .cover {
   background-image: url("https://images.pexels.com/photos/807598/pexels-photo-807598.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500");
   background-size: cover;
   background-repeat: no-repeat;
-}
-
-body {
-  background-image: url("https://images.pexels.com/photos/1903963/pexels-photo-1903963.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500");
-  background-size: cover;
-  height: 100%;
 }
 
 i.fa-pen {

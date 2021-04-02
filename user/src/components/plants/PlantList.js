@@ -1,51 +1,40 @@
-import React, { useContext } from 'react';
-import { Link } from 'react-router-dom'
-import PlantCard from './PlantCard';
-import AddPlant from './AddPlant'
-import { Route } from 'react-router-dom'
+import React, { useEffect, useContext } from "react";
+import { axiosWithAuth } from "../utils/axiosWithAuth";
+import PlantCard from "./PlantCard";
+import AddPlant from "./AddPlant";
 import { PlantContext } from '../contexts/PlantContext'
 
-const PlantList = () => {
-    const plantList = useContext(PlantContext)
-
-    return (
-        <div>
-            {
-                plantList.map(plant => {
-                    return (
-                    <Link key={plant.id} to={`/edit-plant/${plant.id}`}>
-                        <PlantCard plant={plant}/>
-                    </Link>
-                    )
-                })
-            }
-            <Link to={'/addplant'}>
-                <h3>Add new plant</h3>
-            </Link>
+export default function PlantList() {
+  const {plantList, setPlantList} = useContext(PlantContext)
+  const userId = localStorage.getItem("id");
+  const fetchPlant = () => {
+    axiosWithAuth()
+      .get(`/users/${userId}/plants`)
+      .then((res) => {
+        console.log("plant res data", res);
+        setPlantList(res.data.plantCollection);
+      })
+      .catch((err) => console.log(err));
+  };
+  useEffect(() => {
+    fetchPlant(userId);
+  }, [userId]);
+  console.log(plantList);
+  return (
+    <div className="container-wrap">
+      <div class="plant-card-container container mt-2">
+        <div className="row">
+          <AddPlant updatePlantList={setPlantList} />
+          {plantList.map((plant) => (
+            <PlantCard
+              plantList={plantList}
+              updatePlantList={setPlantList}
+              plant={plant}
+              key={plant.index}
+            />
+          ))}
         </div>
-    )
+      </div>
+    </div>
+  );
 }
-
-export default PlantList
-
-// const PlantList = ({ plants }) => {
-
-//     return (
-//         <div>
-//             {
-//                 plants.map(plant => {
-//                     return (
-//                     <Link key={plant.id} to={`/edit-plant/${plant.id}`}>
-//                         <PlantCard plant={plant}/>
-//                     </Link>
-//                     )
-//                 })
-//             }
-//             <Link to={'/addplant'}>
-//                 <h3>Add new plant</h3>
-//             </Link>
-//         </div>
-//     )
-// }
-
-// export default PlantList
