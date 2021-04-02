@@ -10,7 +10,8 @@ import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
 import Plant from "./components/plants/Plant";
 import EditPlant from "./components/plants/EditPlant";
 import PlantList from "./components/plants/PlantList";
-import AddPlant from './components/plants/AddPlant'
+import AddPlant from "./components/plants/AddPlant";
+import { PlantContext } from "./components/contexts/PlantContext";
 
 function App() {
   const [plantList, setPlantList] = useState([]);
@@ -29,44 +30,44 @@ function App() {
   }, []);
 
   return (
-    <Router>
-      <Switch>
-        <Route exact path="/" component={Home} />
-        <Route path="/sign-up" component={SignupForm} />
-        <Route exact path="/sign-in">
-          <LogInForm />
-        </Route>
-        {/* <PrivateRoute exact path="/my-plants">
-          <PlantTest />
-        </PrivateRoute> */}
+    <PlantContext.Provider value={plantList}>
+        <Router>
+          <Switch>
+            <Route exact path="/" component={Home} />
+            <Route path="/sign-up" component={SignupForm} />
+            <Route exact path="/sign-in">
+              <LogInForm />
+            </Route>
 
-        <PrivateRoute path="/plantlist">
-          <PlantList plants={plantList}/>
-        </PrivateRoute>
+            <PrivateRoute path="/plantlist">
+              <PlantList plants={plantList} />
+            </PrivateRoute>
 
-        <Route
-          exact
-          path="/edit-plant/:id"
-          render={() => (
-            <EditPlant plantList={plantList} setPlantList={setPlantList} />
-          )}
-        />
+            <Route
+              exact
+              path="/edit-plant/:id"
+              render={() => (
+                <EditPlant plantList={plantList} setPlantList={setPlantList} />
+              )}
+            />
 
-        <Route>
-          <AddPlant />
-        </Route>
+            <Route>
+              <AddPlant />
+            </Route>
 
-        <Route
-          path="/plant-list/:id"
-          render={(props) => <Plant {...props} setPlantList={setPlantList}/>}
-        />
+            <Route
+              path="/plant-list/:id"
+              render={(props) => (
+                <Plant {...props} setPlantList={setPlantList} />
+              )}
+            />
 
-        <PrivateRoute exact path="/plants/:id">
-          <Plant  plantList={plantList} setPlantList={setPlantList} />
-        </PrivateRoute>
-
-      </Switch>
-    </Router>
+            <PrivateRoute exact path="/plants/:id">
+              <Plant plantList={plantList} setPlantList={setPlantList} />
+            </PrivateRoute>
+          </Switch>
+        </Router>
+    </PlantContext.Provider>
   );
 }
 
