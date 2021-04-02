@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { axiosWithAuth } from "../utils/axiosWithAuth";
 
+import "./plantCard.styles.css";
+
 const AddPlant = ({ updatePlantList }) => {
   const [plant, setPlant] = useState({
     nickname: "",
@@ -74,7 +76,7 @@ const AddPlant = ({ updatePlantList }) => {
             <button
               onClick={handleSubmit}
               type="button"
-              class="btn btn-outline-success"
+              class="add-btn btn btn-outline-success"
             >
               ADD
             </button>

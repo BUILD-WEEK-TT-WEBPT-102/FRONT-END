@@ -11,7 +11,6 @@ import UserProfile from "./components/userProfile/UserProfile";
 import UpdateProfile from "./components/userProfile/UpdateProfile";
 import EditPlant from "./components/plants/EditPlant";
 import PlantList from "./components/plants/PlantList";
-import AddPlant from "./components/plants/AddPlant";
 
 function App() {
   const [plantList, setPlantList] = useState([]);
