@@ -17,7 +17,7 @@ export default function PlantList() {
       })
       .catch((err) => console.log(err));
   }, [userId]);
-  console.log(plantList);
+  //console.log(plantList);
 
   return (
     <div className="container-wrap">

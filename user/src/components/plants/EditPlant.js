@@ -20,6 +20,7 @@ const EditPlant = () => {
     axiosWithAuth()
       .get(`/plants/${id}`)
       .then((res) => {
+        console.log("plant_id", res);
         setEditPlant(res.data);
       })
       .catch((err) => console.log(err));
