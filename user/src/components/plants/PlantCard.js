@@ -31,7 +31,7 @@ const PlantCard = ({ plant }) => {
       <div className="card card-block">
         <h4 className="card-title text-right">
           <i
-            class="material-icons"
+            className="material-icons"
             onClick={() => push(`/edit-plant/${plant.plant_id}`)}
           >
             create

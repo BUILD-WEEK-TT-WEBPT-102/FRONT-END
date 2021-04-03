@@ -5,7 +5,7 @@ import { axiosWithAuth } from "../utils/axiosWithAuth";
 import { PlantContext } from "../contexts/PlantContext";
 
 const EditPlant = () => {
-  const { setPlantList } = useContext(PlantContext);
+  const { plantList, setPlantList } = useContext(PlantContext);
   const [editPlant, setEditPlant] = useState({
     nickname: "",
     species_type: "",
@@ -48,7 +48,7 @@ const EditPlant = () => {
       .put(`/plants/${id}`, editedPlant)
       .then((res) => {
         console.log(res);
-        setPlantList(res.data.plantCollection);
+        setPlantList([...plantList, res.data]);
         push("/my-plants");
       })
       .catch((err) => console.log(err));

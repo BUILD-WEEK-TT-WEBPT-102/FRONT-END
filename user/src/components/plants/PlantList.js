@@ -17,15 +17,14 @@ export default function PlantList() {
       })
       .catch((err) => console.log(err));
   }, [userId]);
-  //console.log(plantList);
 
   return (
     <div className="container-wrap">
       <div class="plant-card-container container mt-2">
         <div className="row">
-          <AddPlant updatePlantList={setPlantList} />
-          {plantList.map((plant) => (
-            <PlantCard plant={plant} key={plant.plant_id} />
+          <AddPlant />
+          {plantList.map((plant, index) => (
+            <PlantCard plant={plant} key={index} />
           ))}
         </div>
       </div>

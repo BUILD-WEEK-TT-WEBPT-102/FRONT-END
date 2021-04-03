@@ -27,8 +27,12 @@ const AddPlant = () => {
     e.preventDefault();
     axiosWithAuth()
       .post("/plants", newPlant)
-      .then((res) => setPlantList([...plantList, res.data.plantCollection]))
+      .then((res) => {
+        console.log(res);
+        setPlantList([...plantList, res.data]);
+      })
       .catch((err) => console.log(err));
+    setNewPlant({ nickname: "", species: "", water_frequency: "" });
   };
 
   return (
