@@ -37,12 +37,18 @@ const EditPlant = () => {
 
   const handleSubmit = (ev) => {
     ev.preventDefault();
-    console.log(editPlant);
+    //console.log(editPlant);
+    const editedPlant = {
+      nickname: editPlant.nickname,
+      species: editPlant.species_type,
+      water_frequency: editPlant.water_frequency,
+      user_id: parseInt(localStorage.getItem("id")),
+    };
     axiosWithAuth()
-      .put(`/plants/${id}`, editPlant)
+      .put(`/plants/${id}`, editedPlant)
       .then((res) => {
         console.log(res);
-        setPlantList(res.data);
+        setPlantList(res.data.plantCollection);
         push("/my-plants");
       })
       .catch((err) => console.log(err));

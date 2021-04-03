@@ -25,7 +25,7 @@ export default function PlantList() {
         <div className="row">
           <AddPlant updatePlantList={setPlantList} />
           {plantList.map((plant) => (
-            <PlantCard plant={plant} key={plant.species_id} />
+            <PlantCard plant={plant} key={plant.plant_id} />
           ))}
         </div>
       </div>

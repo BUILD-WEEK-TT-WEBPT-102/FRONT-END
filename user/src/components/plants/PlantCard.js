@@ -11,16 +11,17 @@ const PlantCard = ({ plant }) => {
 
   const deletePlant = () => {
     axiosWithAuth()
-      .delete(`/plants/${plant.species_id}`)
+      .delete(`/plants/${plant.plant_id}`)
       .then((res) => {
+        console.log(res);
         const result = [
           ...plantList.filter(
-            (item) => `${item.species_id}` !== res.data.plant_id
+            (item) => `${item.plant_id}` !== res.data.plant_id
           ),
         ];
         setPlantList(result);
-        //console.log(result);
-        //console.log(res.data.plant_id);
+        console.log(result);
+        console.log(res.data.plant_id);
       })
       .catch((err) => console.log(err));
   };
@@ -31,7 +32,7 @@ const PlantCard = ({ plant }) => {
         <h4 className="card-title text-right">
           <i
             class="material-icons"
-            onClick={() => push(`/edit-plant/${plant.species_id}`)}
+            onClick={() => push(`/edit-plant/${plant.plant_id}`)}
           >
             create
           </i>
