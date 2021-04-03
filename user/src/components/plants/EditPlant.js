@@ -8,7 +8,7 @@ const EditPlant = () => {
   const { setPlantList } = useContext(PlantContext);
   const [editPlant, setEditPlant] = useState({
     nickname: "",
-    species: "",
+    species_type: "",
     water_frequency: "",
     user_id: parseInt(localStorage.getItem("id")),
   });
@@ -41,7 +41,6 @@ const EditPlant = () => {
       .put(`/plants/${id}`, editPlant)
       .then((res) => {
         console.log(res);
-
         setPlantList(res.data);
         push("/my-plants");
       })
@@ -64,7 +63,7 @@ const EditPlant = () => {
           name="species"
           onChange={handleChanges}
           placeholder="species"
-          value={editPlant.species}
+          value={editPlant.species_type}
         />
         <input
           type="text"

@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { axiosWithAuth } from "../utils/axiosWithAuth";
 
+import { PlantContext } from "../contexts/PlantContext";
 import "./plantCard.styles.css";
 
-const AddPlant = ({ updatePlantList }) => {
+const AddPlant = () => {
+  const { setPlantList } = useContext(PlantContext);
   const [plant, setPlant] = useState({
     nickname: "",
     species: "",
@@ -25,7 +27,7 @@ const AddPlant = ({ updatePlantList }) => {
     e.preventDefault();
     axiosWithAuth()
       .post("/plants", plant)
-      .then((res) => updatePlantList(res.data.plantCollection))
+      .then((res) => setPlantList(res.data.plantCollection))
       .catch((err) => console.log(err));
   };
 

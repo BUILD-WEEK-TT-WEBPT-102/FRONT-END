@@ -16,44 +16,6 @@ function App() {
   const [plantList, setPlantList] = useState([]);
 
   return (
-    // <PlantContext.Provider value={plantList}>
-    //     <Router>
-    //       <Switch>
-    //         <Route exact path="/" component={Home} />
-    //         <Route path="/sign-up" component={SignupForm} />
-    //         <Route exact path="/sign-in">
-    //           <LogInForm />
-    //         </Route>
-
-    //         <PrivateRoute path="/plantlist">
-    //           <PlantList plants={plantList} />
-    //         </PrivateRoute>
-
-    //         <Route
-    //           exact
-    //           path="/edit-plant/:id"
-    //           render={() => (
-    //             <EditPlant plantList={plantList} setPlantList={setPlantList} />
-    //           )}
-    //         />
-
-    //         <Route>
-    //           <AddPlant />
-    //         </Route>
-
-    //         <Route
-    //           path="/plant-list/:id"
-    //           render={(props) => (
-    //             <Plant {...props} setPlantList={setPlantList} />
-    //           )}
-    //         />
-
-    //         <PrivateRoute exact path="/plants/:id">
-    //           <Plant plantList={plantList} setPlantList={setPlantList} />
-    //         </PrivateRoute>
-    //       </Switch>
-    //     </Router>
-    // </PlantContext.Provider>
     <PlantContext.Provider value={{ plantList, setPlantList }}>
       <Router>
         <Nav />
@@ -62,18 +24,11 @@ function App() {
 
           <Route path="/sign-up" component={SignupForm} />
 
-          <Route path="/sign-in">
-            <LogInForm />
-          </Route>
+          <Route path="/sign-in" component={LogInForm} />
 
-          <PrivateRoute exact path="/my-plants">
-            {/* <PlantList plantList={plantList} setPlantList={setPlantList} /> */}
-            <PlantList />
-          </PrivateRoute>
+          <PrivateRoute exact path="/my-plants" component={PlantList} />
 
-          <PrivateRoute exact path="/edit-plant/:id">
-            <EditPlant plantList={plantList} UpdatePlantList={setPlantList} />
-          </PrivateRoute>
+          <PrivateRoute exact path="/edit-plant/:id" component={EditPlant} />
 
           <PrivateRoute path="/my-profile" component={UserProfile} />
 
