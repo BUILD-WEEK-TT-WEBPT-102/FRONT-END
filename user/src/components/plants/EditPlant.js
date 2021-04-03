@@ -1,12 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import { axiosWithAuth } from "../utils/axiosWithAuth";
 
-const EditPlant = ({ plantList, updatePlantList }) => {
-  const plantId = plantList.map((plant) => {
-    return plant.species_id;
-  });
+import { PlantContext } from "../contexts/PlantContext";
 
+const EditPlant = () => {
+  const { setPlantList } = useContext(PlantContext);
   const [editPlant, setEditPlant] = useState({
     nickname: "",
     species: "",
@@ -43,7 +42,7 @@ const EditPlant = ({ plantList, updatePlantList }) => {
       .then((res) => {
         console.log(res);
 
-        updatePlantList(res.data);
+        setPlantList(res.data);
         push("/my-plants");
       })
       .catch((err) => console.log(err));
