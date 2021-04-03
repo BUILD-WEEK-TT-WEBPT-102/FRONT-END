@@ -1,24 +1,23 @@
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
-import * as yup from 'yup'
-import axios from 'axios'
-
+import * as yup from "yup";
+import axios from "axios";
 
 const initialFormValues = {
   ///// TEXT INPUTS /////
-  userName: '',
-  phoneNumber: '',
-  password: '',
-}
+  username: "",
+  phoneNumber: "",
+  password: "",
+};
 
-//LET'S INITIALIZE FORM ERRORS
+// INITIALIZE FORM ERRORS
 const initialFormErrors = {
-    userName: '',
-    phoneNumber: '',
-    password: '',
-}
+  username: "",
+  phoneNumber: "",
+  password: "",
+};
 
-const initialDisabled = true
+const initialDisabled = true;
 // Here goes the schema for the form
 
 const formSchema = yup.object().shape({
@@ -38,108 +37,106 @@ const formSchema = yup.object().shape({
 
 
 export default function SignupForm() {
-  const [formValues, setFormValues] = useState(initialFormValues)          
-  const [formErrors, setFormErrors] = useState(initialFormErrors) 
-  const [disabled, setDisabled] = useState(initialDisabled)  
+  const [formValues, setFormValues] = useState(initialFormValues);
+  const [formErrors, setFormErrors] = useState(initialFormErrors);
+  const [disabled, setDisabled] = useState(initialDisabled);
   const { push } = useHistory();
-      
 
-  // EVENT HANDLERS 
-  const setFormErrors = (name, value) => {
+  // EVENT HANDLERS
+  const setErrors = (name, value) => {
     yup
-     .reach(schema, name)
-     .validate(value)
-     .then(() => setErrors({ ...errors, [name]: "" }))
-     .catch((err) => setErrors({ ...errors, [name]: err.errors[0] }));
- };
+      .reach(formSchema, name)
+      .validate(value)
+      .then(() => setFormErrors({ ...formErrors, [name]: "" }))
+      .catch((err) => setFormErrors({ ...formErrors, [name]: err.errors[0] }));
+  };
 
- const inputChange = (event) => {
-   setFormValues({ ...formValues, [event.target.name]: event.target.value });
-   const { name, value } = event.target;
-   setFormErrors(name, value);
- };
+  const inputChange = (event) => {
+    setFormValues({ ...formValues, [event.target.name]: event.target.value });
+    const { name, value } = event.target;
+    setErrors(name, value);
+  };
 
-    // POST NEW USER USING HELPER
-    const formSubmit = async (event) => {
-      event.preventDefault();
+  // POST NEW USER USING HELPER
+  const formSubmit = (event) => {
+    event.preventDefault();
 
-      const newUser = {
-      userName: formValues.userName.trim(),
+    const newUser = {
+      username: formValues.username.trim(),
       phoneNumber: formValues.phoneNumber.trim(),
       password: formValues.password.trim(),
-    }
-
-      try {
-        const response = axios.post(
-          " https://backend-u4-ttwebpt102.herokuapp.com/api/auth/register",
-          newUser
-        );
-        localStorage.setItem("authToken", response.data);
-        push("/sign-in");
-        console.log(response);
-
-      } catch (error) {
-        console.log(error);
-      }
     };
 
-  // SIDE EFFECTS 
+    axios
+      .post(
+        "https://backend-u4-ttwebpt102.herokuapp.com/api/auth/register",
+        newUser
+      )
+      .then((response) => {
+        push("/sign-in");
+        console.log(response);
+      })
+      .catch((error) => console.log(error));
+  };
+
+  // SIDE EFFECTS
   useEffect(() => {
     // ADJUST THE STATUS OF `disabled` EVERY TIME `formValues` CHANGES
-    formSchema.isValid(formValues).then(valid => setDisabled(!valid))
-  }, [formValues])
+    formSchema.isValid(formValues).then((valid) => setDisabled(!valid));
+  }, [formValues]);
 
-  
   return (
-    <form className='form container' onSubmit={formSubmit}>
-      <div className='form-group submit' >
+    <form className="form container" onSubmit={formSubmit}>
+      <div className="form-group submit">
         <h2>To Check on your plant</h2>
 
         {/* DISABLE THE BUTTON */}
-        <button id = 'submitBtn2' disabled={disabled}>SignUp</button>
+        <button id="submitBtn2" disabled={disabled}>
+          SignUp
+        </button>
 
-        <div className='errors'>
+        <div className="errors">
           {/* RENDER THE VALIDATION ERRORS HERE */}
-          <div>{formErrors.userName}</div>
+          <div>{formErrors.username}</div>
           <div>{formErrors.phoneNumber}</div>
-          <div>{formErrors.password}</div>  
+          <div>{formErrors.password}</div>
         </div>
       </div>
 
-      <div className='form-groupInputs'>
+      <div className="form-groupInputs">
         <h4>USER'S INFORMATION</h4>
 
         {/* ////////// TEXT INPUTS ////////// */}
-        <label>UserName&nbsp;
+        <label>
+          Username&nbsp;
           <input
-            value={formValues.userName}
+            value={formValues.username}
             onChange={inputChange}
-            name='userName'
-            type='text'
+            name="username"
+            type="text"
           />
         </label>
 
-        <label>phoneNumber&nbsp;
+        <label>
+          Phone Number&nbsp;
           <input
             value={formValues.phoneNumber}
             onChange={inputChange}
-            name='phoneNumber'
-            type='number'
+            name="phoneNumber"
+            type="number"
           />
         </label>
-        
-        <label>Password&nbsp;
+
+        <label>
+          Password&nbsp;
           <input
             value={formValues.password}
             onChange={inputChange}
-            name='password'
-            type='password'
+            name="password"
+            type="password"
           />
         </label>
-        
       </div>
-
-    
     </form>
-  )
+  );
 }
