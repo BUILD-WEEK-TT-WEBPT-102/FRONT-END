@@ -7,7 +7,8 @@ import { PlantContext } from "../contexts/PlantContext";
 export default function PlantList() {
   const { plantList, setPlantList } = useContext(PlantContext);
   const userId = localStorage.getItem("id");
-  const fetchPlant = () => {
+
+  useEffect(() => {
     axiosWithAuth()
       .get(`/users/${userId}/plants`)
       .then((res) => {
@@ -15,9 +16,6 @@ export default function PlantList() {
         setPlantList(res.data.plantCollection);
       })
       .catch((err) => console.log(err));
-  };
-  useEffect(() => {
-    fetchPlant(userId);
   }, [userId]);
   console.log(plantList);
 
@@ -27,12 +25,7 @@ export default function PlantList() {
         <div className="row">
           <AddPlant updatePlantList={setPlantList} />
           {plantList.map((plant) => (
-            <PlantCard
-              plantList={plantList}
-              updatePlantList={setPlantList}
-              plant={plant}
-              key={plant.index}
-            />
+            <PlantCard plant={plant} key={plant.species_id} />
           ))}
         </div>
       </div>

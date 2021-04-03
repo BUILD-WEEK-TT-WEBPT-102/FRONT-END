@@ -5,8 +5,8 @@ import { PlantContext } from "../contexts/PlantContext";
 import "./plantCard.styles.css";
 
 const AddPlant = () => {
-  const { setPlantList } = useContext(PlantContext);
-  const [plant, setPlant] = useState({
+  const { plantList, setPlantList } = useContext(PlantContext);
+  const [newPlant, setNewPlant] = useState({
     nickname: "",
     species: "",
     water_frequency: "",
@@ -16,23 +16,23 @@ const AddPlant = () => {
 
   const handleChanges = (e) => {
     e.persist();
-    setPlant({
-      ...plant,
+    setNewPlant({
+      ...newPlant,
       [e.target.name]: e.target.value,
     });
   };
 
   const handleSubmit = (e) => {
-    console.log("submit plant", plant);
+    console.log("submit plant", newPlant);
     e.preventDefault();
     axiosWithAuth()
-      .post("/plants", plant)
-      .then((res) => setPlantList(res.data.plantCollection))
+      .post("/plants", newPlant)
+      .then((res) => setPlantList([...plantList, res.data.plantCollection]))
       .catch((err) => console.log(err));
   };
 
   return (
-    <div class="col-md-3 col-sm-6">
+    <div class="plant-card-bttm col-md-3 col-sm-6">
       <div className="text-center">
         <div className="centered">
           <div className="card card-block">
@@ -52,7 +52,7 @@ const AddPlant = () => {
                 name="nickname"
                 onChange={handleChanges}
                 placeholder="nickname"
-                value={plant.nickname}
+                value={newPlant.nickname}
               />{" "}
             </p>
             <p>
@@ -62,7 +62,7 @@ const AddPlant = () => {
                 name="species"
                 onChange={handleChanges}
                 placeholder="species"
-                value={plant.species}
+                value={newPlant.species}
               />{" "}
             </p>
             <p>
@@ -72,7 +72,7 @@ const AddPlant = () => {
                 name="water_frequency"
                 onChange={handleChanges}
                 placeholder="h20Frequency"
-                value={plant.water_frequency}
+                value={newPlant.water_frequency}
               />{" "}
             </p>
             <button

@@ -1,22 +1,24 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useHistory } from "react-router-dom";
 import { axiosWithAuth } from "../utils/axiosWithAuth";
 
+import { PlantContext } from "../contexts/PlantContext";
 import "./plantCard.styles.css";
 
-const PlantCard = ({ updatePlantList, plantList, plant }) => {
+const PlantCard = ({ plant }) => {
+  const { plantList, setPlantList } = useContext(PlantContext);
   const { push } = useHistory();
 
-  const deletePlant = (plant) => {
+  const deletePlant = () => {
     axiosWithAuth()
       .delete(`/plants/${plant.species_id}`)
       .then((res) => {
         const result = [
           ...plantList.filter(
-            (plant) => `${plant.species_id}` !== res.data.plant_id
+            (item) => `${item.species_id}` !== res.data.plant_id
           ),
         ];
-        updatePlantList(result);
+        setPlantList(result);
         //console.log(result);
         //console.log(res.data.plant_id);
       })
@@ -37,7 +39,7 @@ const PlantCard = ({ updatePlantList, plantList, plant }) => {
             className="material-icons"
             onClick={(e) => {
               e.stopPropagation();
-              deletePlant(plant);
+              deletePlant();
             }}
           >
             delete_forever

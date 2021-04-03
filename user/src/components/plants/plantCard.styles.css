@@ -17,6 +17,10 @@
   transition: 0.5s;
 }
 
+.plant-card-bttm {
+  margin-bottom: 2%;
+}
+
 .card-title {
   font-size: 15px;
   transition: 1s;
