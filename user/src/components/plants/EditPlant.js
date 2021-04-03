@@ -11,7 +11,6 @@ const EditPlant = ({ plantList, updatePlantList }) => {
     nickname: "",
     species: "",
     water_frequency: "",
-    species_id: plantId,
     user_id: parseInt(localStorage.getItem("id")),
   });
 
@@ -38,11 +37,12 @@ const EditPlant = ({ plantList, updatePlantList }) => {
 
   const handleSubmit = (ev) => {
     ev.preventDefault();
+    console.log(editPlant);
     axiosWithAuth()
       .put(`/plants/${id}`, editPlant)
       .then((res) => {
         console.log(res);
-        console.log("res", res.data);
+
         updatePlantList(res.data);
         push("/my-plants");
       })
