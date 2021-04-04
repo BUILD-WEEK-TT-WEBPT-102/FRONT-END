@@ -16,70 +16,25 @@ function App() {
   const [plantList, setPlantList] = useState([]);
 
   return (
-    // <PlantContext.Provider value={plantList}>
-    //     <Router>
-    //       <Switch>
-    //         <Route exact path="/" component={Home} />
-    //         <Route path="/sign-up" component={SignupForm} />
-    //         <Route exact path="/sign-in">
-    //           <LogInForm />
-    //         </Route>
+    <PlantContext.Provider value={{ plantList, setPlantList }}>
+      <Router>
+        <Nav />
+        <Switch>
+          <Route exact path="/" component={Home} />
 
-    //         <PrivateRoute path="/plantlist">
-    //           <PlantList plants={plantList} />
-    //         </PrivateRoute>
+          <Route path="/sign-up" component={SignupForm} />
 
-    //         <Route
-    //           exact
-    //           path="/edit-plant/:id"
-    //           render={() => (
-    //             <EditPlant plantList={plantList} setPlantList={setPlantList} />
-    //           )}
-    //         />
+          <Route path="/sign-in" component={LogInForm} />
 
-    //         <Route>
-    //           <AddPlant />
-    //         </Route>
+          <PrivateRoute exact path="/my-plants" component={PlantList} />
 
-    //         <Route
-    //           path="/plant-list/:id"
-    //           render={(props) => (
-    //             <Plant {...props} setPlantList={setPlantList} />
-    //           )}
-    //         />
+          <PrivateRoute exact path="/edit-plant/:id" component={EditPlant} />
 
-    //         <PrivateRoute exact path="/plants/:id">
-    //           <Plant plantList={plantList} setPlantList={setPlantList} />
-    //         </PrivateRoute>
-    //       </Switch>
-    //     </Router>
-    // </PlantContext.Provider>
-    <PlantContext.Provider value={{plantList, setPlantList}}>
-    <Router>
-      <Nav />
-      <Switch>
-        <Route exact path="/" component={Home} />
+          <PrivateRoute path="/my-profile" component={UserProfile} />
 
-        <Route path="/sign-up" component={SignupForm} />
-
-        <Route path="/sign-in">
-          <LogInForm />
-        </Route>
-
-        <PrivateRoute exact path="/my-plants">
-          {/* <PlantList plantList={plantList} setPlantList={setPlantList} /> */}
-          <PlantList />
-        </PrivateRoute>
-
-        <PrivateRoute exact path="/edit-plant/:id">
-          <EditPlant plantList={plantList} UpdatePlantList={setPlantList} />
-        </PrivateRoute>
-
-        <PrivateRoute path="/my-profile" component={UserProfile} />
-
-        <PrivateRoute path="/update-profile" component={UpdateProfile} />
-      </Switch>
-    </Router>
+          <PrivateRoute path="/update-profile" component={UpdateProfile} />
+        </Switch>
+      </Router>
     </PlantContext.Provider>
   );
 }

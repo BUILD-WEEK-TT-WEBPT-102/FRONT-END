@@ -1,24 +1,27 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useHistory } from "react-router-dom";
 import { axiosWithAuth } from "../utils/axiosWithAuth";
 
+import { PlantContext } from "../contexts/PlantContext";
 import "./plantCard.styles.css";
 
-const PlantCard = ({ updatePlantList, plantList, plant }) => {
+const PlantCard = ({ plant }) => {
+  const { plantList, setPlantList } = useContext(PlantContext);
   const { push } = useHistory();
 
-  const deletePlant = (plant) => {
+  const deletePlant = () => {
     axiosWithAuth()
-      .delete(`/plants/${plant.species_id}`)
+      .delete(`/plants/${plant.plant_id}`)
       .then((res) => {
+        console.log(res);
         const result = [
           ...plantList.filter(
-            (plant) => `${plant.species_id}` !== res.data.plant_id
+            (item) => `${item.plant_id}` !== res.data.plant_id
           ),
         ];
-        updatePlantList(result);
-        //console.log(result);
-        //console.log(res.data.plant_id);
+        setPlantList(result);
+        console.log(result);
+        console.log(res.data.plant_id);
       })
       .catch((err) => console.log(err));
   };
@@ -28,8 +31,8 @@ const PlantCard = ({ updatePlantList, plantList, plant }) => {
       <div className="card card-block">
         <h4 className="card-title text-right">
           <i
-            class="material-icons"
-            onClick={() => push(`/edit-plant/${plant.species_id}`)}
+            className="material-icons"
+            onClick={() => push(`/edit-plant/${plant.plant_id}`)}
           >
             create
           </i>
@@ -37,7 +40,7 @@ const PlantCard = ({ updatePlantList, plantList, plant }) => {
             className="material-icons"
             onClick={(e) => {
               e.stopPropagation();
-              deletePlant(plant);
+              deletePlant();
             }}
           >
             delete_forever

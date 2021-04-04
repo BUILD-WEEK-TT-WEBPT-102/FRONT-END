@@ -86,57 +86,72 @@ export default function SignupForm() {
   }, [formValues]);
 
   return (
-    <form className="form container" onSubmit={formSubmit}>
-      <div className="form-group submit">
-        <h2>To Check on your plant</h2>
+    <div className=" container">
+      <div className="row">
+        <div className="col-lg-10 col-xl-9 mx-auto">
+          <div className="card card-signin flex-row my-5">
+            <div className="card-img-left1 d-none d-md-flex"></div>
+            <div className="card-body">
+              <h5 className="card-title text-center">SIGN INTO YOUR ACCOUNT</h5>
+              <form className="form-signin" onSubmit={formSubmit}>
+                <div className="form-label-group">
+                  <input
+                    name="username"
+                    type="text"
+                    id="inputUserame"
+                    className="form-control"
+                    placeholder="Username"
+                    value={formValues.username}
+                    onChange={inputChange}
+                    required
+                    autoFocus
+                  />
+                  <label htmlFor="inputUserame">Username</label>
+                </div>
+                <div className="err-mes">{formErrors.username}</div>
 
-        {/* DISABLE THE BUTTON */}
-        <button id="submitBtn2" disabled={disabled}>
-          SignUp
-        </button>
+                <div className="form-label-group">
+                  <input
+                    name="password"
+                    type="password"
+                    id="inputPassword"
+                    className="form-control"
+                    placeholder="Password"
+                    value={formValues.password}
+                    onChange={inputChange}
+                    required
+                  />
+                  <label htmlFor="inputPassword">Password</label>
+                </div>
+                <div className="err-mes">{formErrors.password}</div>
 
-        <div className="errors">
-          {/* RENDER THE VALIDATION ERRORS HERE */}
-          <div>{formErrors.username}</div>
-          <div>{formErrors.phoneNumber}</div>
-          <div>{formErrors.password}</div>
+                <div className="form-label-group">
+                  <input
+                    name="phoneNumber"
+                    type="text"
+                    id="inputPhone"
+                    className="form-control"
+                    placeholder="Phone Number"
+                    value={formValues.phoneNumber}
+                    onChange={inputChange}
+                    required
+                  />
+                  <label htmlFor="inputPhone">Phone Number</label>
+                </div>
+                <div className="err-mes">{formErrors.phoneNumber}</div>
+
+                <button
+                  className="btn btn-lg btn-outline-success btn-block text-uppercase"
+                  type="submit"
+                  disabled={disabled}
+                >
+                  SIGN UP
+                </button>
+              </form>
+            </div>
+          </div>
         </div>
       </div>
-
-      <div className="form-groupInputs">
-        <h4>USER'S INFORMATION</h4>
-
-        {/* ////////// TEXT INPUTS ////////// */}
-        <label>
-          Username&nbsp;
-          <input
-            value={formValues.username}
-            onChange={inputChange}
-            name="username"
-            type="text"
-          />
-        </label>
-
-        <label>
-          Phone Number&nbsp;
-          <input
-            value={formValues.phoneNumber}
-            onChange={inputChange}
-            name="phoneNumber"
-            type="number"
-          />
-        </label>
-
-        <label>
-          Password&nbsp;
-          <input
-            value={formValues.password}
-            onChange={inputChange}
-            name="password"
-            type="password"
-          />
-        </label>
-      </div>
-    </form>
+    </div>
   );
 }

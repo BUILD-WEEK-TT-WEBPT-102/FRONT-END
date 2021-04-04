@@ -5,6 +5,7 @@ import { axiosWithAuth } from "../utils/axiosWithAuth";
 import "./nav.styles.css";
 
 export default function Nav() {
+  const [isLogIn, setIsLogIn] = useState(false);
   const [helloName, setHelloName] = useState("");
   const userId = localStorage.getItem("id");
 
@@ -13,6 +14,7 @@ export default function Nav() {
       .get(`/users/${userId}`)
       .then((response) => {
         console.log(response.data);
+        userId && setIsLogIn(true);
         setHelloName(response.data.username);
       })
       .catch((error) => console.log(error));
@@ -24,10 +26,12 @@ export default function Nav() {
         WATER MY PLANTS
       </Link>
       <div className="nav-container">
-        <Link className="option1" to="/my-profile">
-          <p className="option-hello">HELLO</p>{" "}
-          <p className="option-name">{helloName}</p>
-        </Link>
+        {isLogIn && (
+          <Link className="option1" to="/my-profile">
+            <p className="option-hello">HELLO</p>{" "}
+            <p className="option-name">{helloName}</p>
+          </Link>
+        )}
         <Link className="option" to="/">
           HOME
         </Link>

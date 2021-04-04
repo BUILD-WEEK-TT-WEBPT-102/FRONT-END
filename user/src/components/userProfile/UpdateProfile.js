@@ -85,7 +85,7 @@ export default function UpdateProfile() {
                 </div>
 
                 <button
-                  className="btn btn-lg btn-primary btn-block text-uppercase"
+                  className="btn btn-lg btn-outline-success btn-block text-uppercase"
                   type="submit"
                 >
                   Update

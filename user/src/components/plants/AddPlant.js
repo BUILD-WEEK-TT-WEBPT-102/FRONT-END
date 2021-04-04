@@ -1,8 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { axiosWithAuth } from "../utils/axiosWithAuth";
 
-const AddPlant = ({ updatePlantList }) => {
-  const [plant, setPlant] = useState({
+import { PlantContext } from "../contexts/PlantContext";
+import "./plantCard.styles.css";
+
+const AddPlant = () => {
+  const { plantList, setPlantList } = useContext(PlantContext);
+  const [newPlant, setNewPlant] = useState({
     nickname: "",
     species: "",
     water_frequency: "",
@@ -12,23 +16,27 @@ const AddPlant = ({ updatePlantList }) => {
 
   const handleChanges = (e) => {
     e.persist();
-    setPlant({
-      ...plant,
+    setNewPlant({
+      ...newPlant,
       [e.target.name]: e.target.value,
     });
   };
 
   const handleSubmit = (e) => {
-    console.log("submit plant", plant);
+    console.log("submit plant", newPlant);
     e.preventDefault();
     axiosWithAuth()
-      .post("/plants", plant)
-      .then((res) => updatePlantList(res.data.plantCollection))
+      .post("/plants", newPlant)
+      .then((res) => {
+        console.log(res);
+        setPlantList([...plantList, res.data]);
+      })
       .catch((err) => console.log(err));
+    setNewPlant({ nickname: "", species: "", water_frequency: "" });
   };
 
   return (
-    <div class="col-md-3 col-sm-6">
+    <div class="plant-card-bttm col-md-3 col-sm-6">
       <div className="text-center">
         <div className="centered">
           <div className="card card-block">
@@ -48,7 +56,7 @@ const AddPlant = ({ updatePlantList }) => {
                 name="nickname"
                 onChange={handleChanges}
                 placeholder="nickname"
-                value={plant.nickname}
+                value={newPlant.nickname}
               />{" "}
             </p>
             <p>
@@ -58,7 +66,7 @@ const AddPlant = ({ updatePlantList }) => {
                 name="species"
                 onChange={handleChanges}
                 placeholder="species"
-                value={plant.species}
+                value={newPlant.species}
               />{" "}
             </p>
             <p>
@@ -68,13 +76,13 @@ const AddPlant = ({ updatePlantList }) => {
                 name="water_frequency"
                 onChange={handleChanges}
                 placeholder="h20Frequency"
-                value={plant.water_frequency}
+                value={newPlant.water_frequency}
               />{" "}
             </p>
             <button
               onClick={handleSubmit}
               type="button"
-              class="btn btn-outline-success"
+              class="add-btn btn btn-outline-success"
             >
               ADD
             </button>

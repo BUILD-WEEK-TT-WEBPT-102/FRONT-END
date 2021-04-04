@@ -27,6 +27,27 @@
   background-size: cover;
 }
 
+.card-img-left {
+  width: 45%;
+  background: scroll center
+    url("https://images.pexels.com/photos/4503268/pexels-photo-4503268.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500");
+  background-size: cover;
+}
+
+.card-img-left1 {
+  width: 45%;
+  background: scroll center
+    url("https://images.pexels.com/photos/6802972/pexels-photo-6802972.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500");
+  background-size: cover;
+}
+
+.card-img-left2 {
+  width: 45%;
+  background: scroll center
+    url("https://images.pexels.com/photos/887767/pexels-photo-887767.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500");
+  background-size: cover;
+}
+
 .card-signin .card-body {
   padding: 2rem;
 }
@@ -104,4 +125,9 @@
   padding-bottom: calc(var(--input-padding-y) / 3);
   font-size: 12px;
   color: #777;
+}
+
+.err-mes {
+  color: red;
+  text-align: center;
 }

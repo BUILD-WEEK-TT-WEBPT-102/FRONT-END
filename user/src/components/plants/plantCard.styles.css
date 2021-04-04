@@ -17,6 +17,10 @@
   transition: 0.5s;
 }
 
+.plant-card-bttm {
+  margin-bottom: 2%;
+}
+
 .card-title {
   font-size: 15px;
   transition: 1s;
@@ -71,4 +75,17 @@
 .card:focus::before,
 .card:focus::after {
   transform: scale3d(1, 1, 1);
+}
+
+.add-btn {
+  margin-bottom: 3.8%;
+  margin-right: 6%;
+  margin-left: 6%;
+}
+
+.card-img-left3 {
+  width: 45%;
+  background: scroll center
+    url("https://images.pexels.com/photos/796620/pexels-photo-796620.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500");
+  background-size: cover;
 }
