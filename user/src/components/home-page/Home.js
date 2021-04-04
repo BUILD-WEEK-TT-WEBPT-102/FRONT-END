@@ -1,40 +1,36 @@
 import React from "react";
-// We'll need React Router's own version of the History API
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
+
+import "./home.styles.css";
 
 export default function Home() {
-  // 👉 STEP 5 - Build a click handler that will imperatively
-  // navigate us to <website base URL>/items-list
-  const history = useHistory();
-
-  const routeToLogIn = () => {
-    // console.log("...routing");
-    history.push("/sign-in");
-  };
+  const { push } = useHistory();
 
   return (
-    <div className="container">
-      <header>
-        <h1>Never let your plants dry again.</h1>
-      </header>
-      <nav>
-        <h1 className="pizza-header">Plant&apos;s Radience</h1>
-        <div className="nav-links">
-          {/*  Make Links to navigate us Home (`/`) and (`/SignupForm`) */}
-          <Link to="/">Home</Link>
-          <Link to="/sign-up">SignUp!</Link>
-        </div>
-      </nav>
-      <div className="home-wrapper">
-        <button onClick={routeToLogIn} className="md-button shop-button">
-          LogIn Now!
-        </button>
-        <div>
-          {/* <img
-            className="home-image"
-            src="https://i.pinimg.com/originals/25/c8/48/25c848940552cafac0fbf68a146f5190.jpg"
-            alt=""
-          /> */}
+    <div className="home-container">
+      <img
+        className="home-img"
+        src="https://images.pexels.com/photos/5706224/pexels-photo-5706224.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"
+        alt="home-plant"
+      />
+      <div className="home-slogan-container">
+        <h1 className="home-slogan">Never let your plants dry again.</h1>
+        <h2 className="home-wording">Plant&apos;s Radience</h2>
+        <div className="home-nav-links">
+          <button
+            onClick={() => push("/sign-up")}
+            type="button"
+            class="home-signup btn btn-outline-success"
+          >
+            Sign Up
+          </button>
+          <button
+            onClick={() => push("/sign-in")}
+            type="button"
+            class="home-signin btn btn-outline-success"
+          >
+            Sign In
+          </button>
         </div>
       </div>
     </div>

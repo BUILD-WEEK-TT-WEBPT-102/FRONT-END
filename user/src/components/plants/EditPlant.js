@@ -1,46 +1,53 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
-import { useHistory, useParams } from 'react-router-dom'
+import { useHistory, useParams } from "react-router-dom";
+import { axiosWithAuth } from "../utils/axiosWithAuth";
 
-const EditPlant = (props) => {
-  const [plant, setPlant] = useState({
-    nickname: "",
-    // species: "",
-    water_frequency: "",
-    species_id: "",
-    user_id: ""
+const EditPlant = ({ plantList, updatePlantList }) => {
+  const plantId = plantList.map((plant) => {
+    return plant.species_id;
   });
 
-  const { id } = useParams()
-  const history = useHistory();
+  const [editPlant, setEditPlant] = useState({
+    nickname: "",
+    species: "",
+    water_frequency: "",
+    species_id: plantId,
+    user_id: parseInt(localStorage.getItem("id")),
+  });
+
+  const { push } = useHistory();
+  const { id } = useParams();
 
   useEffect(() => {
-      axios
-        .get(`https://backend-u4-ttwebpt102.herokuapp.com/api/plants/${id}`)
-        .then(res => setPlant(res.data))
-        .catch(err => console.log(err))
-  }, [id])
-
-  const handleChanges = e => {
-      e.persist();
-      e.preventDefault();
-      setPlant({
-          ...plant,
-          [e.target.name]: e.target.value
+    axiosWithAuth()
+      .get(`/plants/${id}`)
+      .then((res) => {
+        setEditPlant(res.data);
       })
-  }
+      .catch((err) => console.log(err));
+  }, [id]);
 
-  const handleSubmit = ev => {
+  const handleChanges = (e) => {
+    e.persist();
+    e.preventDefault();
+    setEditPlant({
+      ...editPlant,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSubmit = (ev) => {
     ev.preventDefault();
-    axios
-        .put(`https://backend-u4-ttwebpt102.herokuapp.com/api/plants/${id}`, plant)
-        .then(res => {
-          console.log('res', res)
-          setPlant(res.data)
-          history.push(`/plant-list/${id}`)
-        })
-        .catch(err => console.log(err))
-  }
+    axiosWithAuth()
+      .put(`/plants/${id}`, editPlant)
+      .then((res) => {
+        console.log(res);
+        console.log("res", res.data);
+        updatePlantList(res.data);
+        push("/my-plants");
+      })
+      .catch((err) => console.log(err));
+  };
 
   return (
     <div>
@@ -51,23 +58,23 @@ const EditPlant = (props) => {
           name="nickname"
           onChange={handleChanges}
           placeholder="nickname"
-          value={plant.nickname}
+          value={editPlant.nickname}
         />
-        {/* <input
+        <input
           type="text"
           name="species"
           onChange={handleChanges}
           placeholder="species"
-          value={plant.species}
-        /> */}
+          value={editPlant.species}
+        />
         <input
           type="text"
           name="water_frequency"
           onChange={handleChanges}
           placeholder="h2oFrequency"
-          value={plant.water_frequency}
+          value={editPlant.water_frequency}
         />
-        <button>Update</button>
+        <button onClick={handleSubmit}>Update</button>
       </form>
     </div>
   );
