@@ -14,8 +14,8 @@ export default function Home() {
         alt="home-plant"
       />
       <div className="home-slogan-container">
-        <h1 className="home-slogan">Never let your plants dry again.</h1>
-        <h2 className="home-wording">Plant&apos;s Radience</h2>
+        <h1 className="home-slogan">Never let your plants</h1>
+        <h2 className="home-wording">dry again!</h2>
         <div className="home-nav-links">
           <button
             onClick={() => push("/sign-up")}

@@ -21,10 +21,10 @@ const initialDisabled = true;
 // Here goes the schema for the form
 
 const formSchema = yup.object().shape({
-    userName: yup.string()
+    username: yup.string()
         .trim()
-        .required('userName is required, please fill out.')
-        .min(3, 'userName must be 3 characters long'),
+        .required('username is required, please fill out.')
+        .min(3, 'username must be 3 characters long'),
     phoneNumber: yup.string()
         .trim()
         .min(10, 'phone number must be 10 digits long.')
@@ -44,11 +44,10 @@ export default function SignupForm() {
 
   // EVENT HANDLERS
   const setErrors = (name, value) => {
-    yup
-      .reach(formSchema, name)
-      .validate(value)
-      .then(() => setFormErrors({ ...formErrors, [name]: "" }))
-      .catch((err) => setFormErrors({ ...formErrors, [name]: err.errors[0] }));
+    yup.reach(formSchema, name)
+       .validate(value)
+       .then(() => setFormErrors({ ...formErrors, [name]: "" }))
+       .catch((err) => setFormErrors({ ...formErrors, [name]: err.errors[0] }));
   };
 
   const inputChange = (event) => {
