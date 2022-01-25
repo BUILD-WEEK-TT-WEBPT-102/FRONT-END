@@ -21,21 +21,20 @@ const initialDisabled = true;
 // Here goes the schema for the form
 
 const formSchema = yup.object().shape({
-  username: yup
-    .string()
-    .trim()
-    .required("Username is required, please fill out.")
-    .min(3, "username must be 3 characters long"),
-  phoneNumber: yup
-    .string()
-    .trim()
-    .min(10, "Phone number must be 10 digits long.")
-    .required("Phone number is required, please fill out."),
-  password: yup
-    .string()
-    .min(8, "Password must be 8 characters long")
-    .required("Password is required, please fill out."),
-});
+    username: yup.string()
+        .trim()
+        .required('username is required, please fill out.')
+        .min(3, 'username must be 3 characters long'),
+    phoneNumber: yup.string()
+        .trim()
+        .min(10, 'phone number must be 10 digits long.')
+        .required('phone number is required, please fill out.'),
+    password: yup.string()
+        .min(8,'Password must be 8 characters long')
+        .required('Password is required, please fill out.'), 
+            
+})
+
 
 export default function SignupForm() {
   const [formValues, setFormValues] = useState(initialFormValues);
@@ -45,11 +44,10 @@ export default function SignupForm() {
 
   // EVENT HANDLERS
   const setErrors = (name, value) => {
-    yup
-      .reach(formSchema, name)
-      .validate(value)
-      .then(() => setFormErrors({ ...formErrors, [name]: "" }))
-      .catch((err) => setFormErrors({ ...formErrors, [name]: err.errors[0] }));
+    yup.reach(formSchema, name)
+       .validate(value)
+       .then(() => setFormErrors({ ...formErrors, [name]: "" }))
+       .catch((err) => setFormErrors({ ...formErrors, [name]: err.errors[0] }));
   };
 
   const inputChange = (event) => {
