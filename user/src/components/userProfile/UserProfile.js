@@ -17,7 +17,7 @@ export default function UserProfile() {
     axiosWithAuth()
       .get(`/users/${userId}`)
       .then((response) => {
-        console.log(response.data);
+        //console.log(response.data);
         setCurrentUser(response.data);
       })
       .catch((error) => console.log(error));
