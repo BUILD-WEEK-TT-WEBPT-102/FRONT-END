@@ -16,7 +16,7 @@ export default function PlantList() {
         setPlantList(res.data.plantCollection);
       })
       .catch((err) => console.log(err));
-  }, [userId]);
+  }, [userId, setPlantList]);
 
   return (
     <div className="container-wrap">
