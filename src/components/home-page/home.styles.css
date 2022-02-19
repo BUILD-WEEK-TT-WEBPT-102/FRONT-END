@@ -22,6 +22,7 @@
 .home-wording {
   margin-top: 3%;
   font-size: 3rem;
+  text-decoration: none;
 }
 
 .home-nav-links {
@@ -31,24 +32,22 @@
 .home-signup,
 .home-signin {
   margin-right: 2%;
-  
 }
- h1 {
-   color: rgb(23, 25, 27);
- }
- h2 {
-   color:rgb(207, 186, 212);
-   text-decoration: underline;
-   margin: 5px;
- }
- h1:hover {
+h1 {
+  color: rgb(2, 20, 13);
+}
+h2 {
+  color: rgb(207, 186, 212);
+  text-decoration: underline;
+  margin: 5px;
+}
+h1:hover {
   font-size: 24px;
   transition: 6s all ease-in-out;
-  color:rgb(139, 197, 236);
- }
- h2:hover {
+  color: rgb(139, 197, 236);
+}
+h2:hover {
   font-size: 2px;
   transition: 6s all ease-in-out;
-  color: blueviolet
- }
- 
+  color: blueviolet;
+}
